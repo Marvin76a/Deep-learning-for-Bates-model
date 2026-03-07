@@ -17,7 +17,7 @@ import numpy as np
 
 from .config import BatesConfig
 from .bates_sde import sample_noises, generate_paths
-from .networks import BNNet
+from .networks import SubNet
 from .utils import set_seed, plot_training
 
 
@@ -45,8 +45,8 @@ class DualSolver(nn.Module):
 
         self.Y0 = nn.Parameter(torch.tensor(0.0))
 
-        self.z_nets = nn.ModuleList([BNNet(x_dim, x_dim) for _ in range(cfg.N)])
-        self.u_nets = nn.ModuleList([BNNet(x_dim, 1)     for _ in range(cfg.N)])
+        self.z_nets = nn.ModuleList([SubNet(x_dim, x_dim) for _ in range(cfg.N)])
+        self.u_nets = nn.ModuleList([SubNet(x_dim, 1)     for _ in range(cfg.N)])
 
     def forward(self, X, dW_S, dW_v, dN_tilde):
         cfg = self.cfg

@@ -19,7 +19,9 @@ svjdm/
 │   └── utils.py                   # Seed, timing, plotting utilities
 ├── experiments/
 │   ├── phase1_accuracy.py         # Low-dim accuracy test (d=1, 3)
-│   └── phase2_scaling.py          # High-dim scaling test (d=10–200)
+│   ├── phase2_scaling.py          # High-dim scaling test (d=10–200)
+│   ├── ablation_model.py          # Model ablation study (d=50)
+│   └── greeks_extraction.py      # Delta & Vega extraction (d=50)
 ├── pricing_algorithms/            # C++ reference (COS & MC for GBM/Heston)
 ├── thesis/                        # LaTeX source
 ├── reference/                     # Reference papers
@@ -48,11 +50,17 @@ pip install -r requirements.txt
 ### Run experiments
 
 ```bash
-# Phase 1: low-dim accuracy (d=1, 3)
+# Phase 1: low-dim accuracy (d=1, 3) — Triple-Net vs COS / MC
 python experiments/phase1_accuracy.py
 
-# Phase 2: high-dim scaling (d=10, 50, 100, 200)
+# Phase 2: high-dim scaling (d=10, 50, 100, 200) — Triple-Net vs MC
 python experiments/phase2_scaling.py
+
+# Model ablation (d=50) — Single-Net vs Dual-Net vs Triple-Net
+python experiments/ablation_model.py
+
+# Greeks extraction (d=50) — Delta & Vega vs MC finite difference
+python experiments/greeks_extraction.py
 ```
 
 ### Train a single model
@@ -91,3 +99,8 @@ model, losses, y0s, elapsed = train(cfg)
 | Risk-free rate | r | 0.05 |
 | Strike | K | 1.0 |
 | Maturity | T | 1.0 |
+
+## project acknowledgment
+
+The C++ engine for the COS method baseline used in Experiment 1 is built upon the excellent work by Luis Taneda.
+https://github.com/luisontaneda/option_pricing_pybind11

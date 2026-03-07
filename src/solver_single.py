@@ -14,7 +14,7 @@ import torch.optim as optim
 
 from .config import BatesConfig
 from .bates_sde import sample_noises, generate_paths
-from .networks import SimpleNet
+from .networks import SubNet
 from .utils import set_seed, plot_training
 
 
@@ -27,7 +27,7 @@ class SingleSolver(nn.Module):
         self.Y0 = nn.Parameter(torch.tensor(0.0))
 
         self.z_nets = nn.ModuleList([
-            SimpleNet(x_dim, x_dim) for _ in range(cfg.N)
+            SubNet(x_dim, x_dim) for _ in range(cfg.N)
         ])
 
     def forward(self, X, dW_S, dW_v, dN_tilde):

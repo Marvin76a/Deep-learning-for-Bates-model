@@ -1,17 +1,21 @@
-"""Phase 2: High-Dimensional Scaling Test (d = 10, 50, 100, 200).
+"""Phase 2: Pricing Accuracy and Computational Complexity Scaling.
 
 Purpose
 -------
-Demonstrate that the deep learning algorithm maintains linear time
-complexity O(d * N) as dimensions grow, while MC exhibits exponential /
-steep cost growth.
+Demonstrate that the Triple-Net deep learning algorithm maintains accuracy
+across all dimensions (d = 1 to 200), while MC computation cost grows
+steeply with dimension.
 
-Benchmark: large-scale MC with antithetic variates.
+Benchmarks:
+  - COS Fourier transform (d=1, exact)
+  - Large-scale Monte Carlo with antithetic variates (d >= 3)
 
 Outputs
 -------
-  - Table of prices, relative errors, and computation times
-  - **Computation time vs dimension** trend chart
+  - Unified scaling table matching thesis Table format:
+    Dimension | MC Benchmark (95% CI) | Our Model (Y0) | MC Time | Our Time (per 1k Epochs)
+  - Computation time vs dimension chart
+  - Relative error vs dimension chart
 """
 
 import sys
@@ -24,88 +28,108 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from src.config import BatesConfig
+from src.cos_bates import cos_price_from_config
 from src.mc_bates import mc_price_basket
-from src import solver_triple, solver_dual, solver_single
+from src import solver_triple
 
 
 # -----------------------------------------------------------------------
 # Experiment settings
 # -----------------------------------------------------------------------
-DIMS = [10, 50, 100, 200]
+DIMS = [1, 3, 10, 50, 100, 200]
 EPOCHS = 3000
 N_STEPS = 100
 BATCH_SIZE = 1024
 
 MC_PATHS = {
+    3:   10_000_000,
     10:  2_000_000,
-    50:  1_000_000,
-    100: 1_000_000,
-    200: 500_000,
+    50:  500_000,
+    100: 200_000,
+    200: 100_000,
 }
 MC_BATCH = 50_000
 
 
 def run_for_dim(d):
-    """Run all methods for a single dimension."""
+    """Run Triple-Net and benchmark for a single dimension."""
     print(f"\n{'#'*60}")
     print(f"# d = {d}")
     print(f"{'#'*60}")
 
     cfg = BatesConfig(d=d, N=N_STEPS, M=BATCH_SIZE, epochs=EPOCHS)
 
-    # MC benchmark
-    n_mc = MC_PATHS.get(d, 500_000)
-    mc_result = mc_price_basket(cfg, n_paths=n_mc, batch_size=MC_BATCH)
-    ref_price = mc_result["price"]
-    print(f"MC reference: {ref_price:.6f} ± {mc_result['std_err']:.6f} "
-          f"({mc_result['elapsed_s']:.1f}s)")
+    row = {"d": d}
 
-    # DL models
-    row = {"d": d, "mc_price": ref_price, "mc_time": mc_result["elapsed_s"],
-           "mc_stderr": mc_result["std_err"]}
+    if d == 1:
+        t0 = time.time()
+        cos_price = cos_price_from_config(cfg)
+        cos_time = time.time() - t0
+        row["ref_price"] = cos_price
+        row["ref_ci"] = None
+        row["mc_time"] = None
+        row["label"] = "COS exact"
+        print(f"COS exact price: {cos_price:.8f}  ({cos_time:.4f}s)")
+    else:
+        n_mc = MC_PATHS.get(d, 100_000)
+        mc_result = mc_price_basket(cfg, n_paths=n_mc, batch_size=MC_BATCH)
+        ci_95 = 1.96 * mc_result["std_err"]
+        row["ref_price"] = mc_result["price"]
+        row["ref_ci"] = ci_95
+        row["mc_time"] = mc_result["elapsed_s"]
+        n_mc_k = n_mc // 1_000_000 if n_mc >= 1_000_000 else n_mc // 1_000
+        unit = "M" if n_mc >= 1_000_000 else "K"
+        row["label"] = f"{n_mc_k}{unit} paths"
+        print(f"MC reference: {mc_result['price']:.6f} ± {ci_95:.6f} "
+              f"({mc_result['elapsed_s']:.1f}s)")
 
-    for tag, trainer in [
-        ("triple", solver_triple.train),
-        ("dual",   solver_dual.train),
-        ("single", solver_single.train),
-    ]:
-        print(f"\nTraining {tag}-net  d={d} ...")
-        _, losses, y0s, elapsed = trainer(cfg, verbose=True)
-        y0 = y0s[-1]
-        row[f"{tag}_price"] = y0
-        row[f"{tag}_time"]  = elapsed
-        row[f"{tag}_relerr"] = abs(y0 - ref_price) / abs(ref_price) if ref_price else float("inf")
+    # Triple-Net
+    print(f"\nTraining Triple-Net  d={d} ...")
+    _, losses, y0s, elapsed = solver_triple.train(cfg, verbose=True)
+    y0 = y0s[-1]
+    row["y0"] = y0
+    row["dl_time_total"] = elapsed
+    row["dl_time_per1k"] = elapsed * 1000 / EPOCHS
 
     return row
 
 
-def print_summary_table(rows):
-    header = (f"{'d':>4} | {'MC Price':>10} {'MC Time':>8} | "
-              f"{'Triple':>10} {'Time':>7} {'RelErr':>8} | "
-              f"{'Dual':>10} {'Time':>7} {'RelErr':>8} | "
-              f"{'Single':>10} {'Time':>7} {'RelErr':>8}")
-    print(f"\n{'='*len(header)}")
-    print(header)
-    print(f"{'-'*len(header)}")
+def print_scaling_table(rows):
+    """Print the unified scaling table matching the thesis format."""
+    w = 100
+    print(f"\n{'='*w}")
+    print(f"{'Dimension (d)':<20} {'MC Benchmark (95% CI)':>24} "
+          f"{'Our Model (Y0)':>16} {'MC Time (s)':>12} {'Our Time (per 1k ep, s)':>24}")
+    print(f"{'-'*w}")
     for r in rows:
-        line = (f"{r['d']:>4} | {r['mc_price']:>10.4f} {r['mc_time']:>7.1f}s | "
-                f"{r['triple_price']:>10.4f} {r['triple_time']:>6.1f}s {r['triple_relerr']:>8.4f} | "
-                f"{r['dual_price']:>10.4f} {r['dual_time']:>6.1f}s {r['dual_relerr']:>8.4f} | "
-                f"{r['single_price']:>10.4f} {r['single_time']:>6.1f}s {r['single_relerr']:>8.4f}")
-        print(line)
-    print(f"{'='*len(header)}")
+        d_str = f"{r['d']} ({r['label']})"
+
+        if r["ref_ci"] is not None:
+            mc_str = f"{r['ref_price']:.4f} +/- {r['ref_ci']:.4f}"
+        else:
+            mc_str = f"{r['ref_price']:.4f}"
+
+        mc_time_str = f"{r['mc_time']:.1f}" if r["mc_time"] is not None else "-"
+
+        print(f"{d_str:<20} {mc_str:>24} "
+              f"{r['y0']:>16.4f} {mc_time_str:>12} {r['dl_time_per1k']:>24.1f}")
+    print(f"{'='*w}")
 
 
 def plot_time_vs_dim(rows, save_dir="figs"):
-    """Key figure: computation time vs dimension d."""
+    """Computation time vs dimension d."""
     os.makedirs(save_dir, exist_ok=True)
-    dims = [r["d"] for r in rows]
+
+    mc_rows = [r for r in rows if r["mc_time"] is not None]
+    mc_dims = [r["d"] for r in mc_rows]
+    mc_times = [r["mc_time"] for r in mc_rows]
+
+    all_dims = [r["d"] for r in rows]
+    dl_times = [r["dl_time_per1k"] for r in rows]
 
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.plot(dims, [r["mc_time"]     for r in rows], "s--", label="MC", linewidth=2)
-    ax.plot(dims, [r["triple_time"] for r in rows], "o-",  label="Triple-Net (ours)", linewidth=2)
-    ax.plot(dims, [r["dual_time"]   for r in rows], "^-",  label="Dual-Net",   linewidth=2)
-    ax.plot(dims, [r["single_time"] for r in rows], "v-",  label="Single-Net", linewidth=2)
+    ax.plot(mc_dims, mc_times, "s--", label="MC", linewidth=2)
+    ax.plot(all_dims, dl_times, "o-", label="Triple-Net (ours, per 1k epochs)", linewidth=2)
 
     ax.set_xlabel("Dimension d", fontsize=13)
     ax.set_ylabel("Computation Time (s)", fontsize=13)
@@ -124,11 +148,12 @@ def plot_relerr_vs_dim(rows, save_dir="figs"):
     """Relative error vs dimension d."""
     os.makedirs(save_dir, exist_ok=True)
     dims = [r["d"] for r in rows]
+    relerrs = [abs(r["y0"] - r["ref_price"]) / abs(r["ref_price"])
+               if r["ref_price"] != 0 else float("inf")
+               for r in rows]
 
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.plot(dims, [r["triple_relerr"] for r in rows], "o-",  label="Triple-Net (ours)", linewidth=2)
-    ax.plot(dims, [r["dual_relerr"]   for r in rows], "^-",  label="Dual-Net",   linewidth=2)
-    ax.plot(dims, [r["single_relerr"] for r in rows], "v-",  label="Single-Net", linewidth=2)
+    ax.plot(dims, relerrs, "o-", label="Triple-Net (ours)", linewidth=2)
 
     ax.set_xlabel("Dimension d", fontsize=13)
     ax.set_ylabel("Relative Error", fontsize=13)
@@ -149,7 +174,7 @@ if __name__ == "__main__":
         row = run_for_dim(d)
         rows.append(row)
 
-    print_summary_table(rows)
+    print_scaling_table(rows)
     plot_time_vs_dim(rows)
     plot_relerr_vs_dim(rows)
     print("\nPhase 2 complete.")

@@ -6,13 +6,11 @@ Prove that the three-branch neural network is mathematically unbiased by
 comparing against:
   - COS Fourier transform   (d=1, near-exact analytic benchmark)
   - Large-scale Monte Carlo  (d=3, 10M-path "relative truth")
-  - Dual-network Deep BSDE   (ablation baseline)
-  - Single-network Deep BSDE (Han et al. 2018 baseline)
 
 Outputs
 -------
   - Table of prices, absolute errors, and relative errors
-  - Convergence curves for all DL models
+  - Convergence curves for Triple-Net
 """
 
 import sys
@@ -27,7 +25,7 @@ import matplotlib.pyplot as plt
 from src.config import BatesConfig
 from src.cos_bates import cos_price_from_config
 from src.mc_bates import mc_price_basket
-from src import solver_triple, solver_dual, solver_single
+from src import solver_triple
 
 
 # -----------------------------------------------------------------------
@@ -39,30 +37,23 @@ BATCH_SIZE = 1024
 MC_PATHS_REF = 10_000_000
 
 
-def run_dl_models(cfg):
-    """Train all three DL solvers and return (name, Y0, elapsed, losses)."""
-    results = []
-    for name, trainer in [
-        ("Triple-Net", solver_triple.train),
-        ("Dual-Net",   solver_dual.train),
-        ("Single-Net", solver_single.train),
-    ]:
-        print(f"\n{'='*60}")
-        print(f"Training {name}  d={cfg.d}")
-        print(f"{'='*60}")
-        _, losses, y0s, elapsed = trainer(cfg, verbose=True)
-        results.append({
-            "name": name,
-            "y0": y0s[-1],
-            "elapsed": elapsed,
-            "losses": losses,
-            "y0s": y0s,
-        })
-    return results
+def train_triple(cfg):
+    """Train Triple-Net and return result dict."""
+    print(f"\n{'='*60}")
+    print(f"Training Triple-Net  d={cfg.d}")
+    print(f"{'='*60}")
+    _, losses, y0s, elapsed = solver_triple.train(cfg, verbose=True)
+    return {
+        "name": "Triple-Net",
+        "y0": y0s[-1],
+        "elapsed": elapsed,
+        "losses": losses,
+        "y0s": y0s,
+    }
 
 
 def run_phase1_d1():
-    """d=1: Compare DL models against COS (exact benchmark)."""
+    """d=1: Compare Triple-Net against COS (exact benchmark)."""
     print("\n" + "#" * 60)
     print("# Phase 1 — d = 1 (COS exact benchmark)")
     print("#" * 60)
@@ -79,10 +70,13 @@ def run_phase1_d1():
     mc_result = mc_price_basket(cfg, n_paths=MC_PATHS_REF, batch_size=100_000)
     print(f"MC  cross-check:    {mc_result['price']:.8f} ± {mc_result['std_err']:.6f}")
 
-    # DL models
-    dl_results = run_dl_models(cfg)
+    # Triple-Net
+    dl_result = train_triple(cfg)
 
     # Summary table
+    ae = abs(dl_result["y0"] - cos_price)
+    re = ae / abs(cos_price) if cos_price != 0 else float("inf")
+
     print(f"\n{'='*70}")
     print(f"{'Method':<16} {'Price':>12} {'AbsErr':>12} {'RelErr':>12} {'Time(s)':>10}")
     print(f"{'-'*70}")
@@ -91,17 +85,14 @@ def run_phase1_d1():
           f"{abs(mc_result['price']-cos_price):>12.6f} "
           f"{abs(mc_result['price']-cos_price)/cos_price:>12.6f} "
           f"{mc_result['elapsed_s']:>10.1f}")
-    for r in dl_results:
-        ae = abs(r["y0"] - cos_price)
-        re = ae / abs(cos_price) if cos_price != 0 else float("inf")
-        print(f"{r['name']:<16} {r['y0']:>12.6f} {ae:>12.6f} {re:>12.6f} {r['elapsed']:>10.1f}")
+    print(f"{dl_result['name']:<16} {dl_result['y0']:>12.6f} {ae:>12.6f} {re:>12.6f} {dl_result['elapsed']:>10.1f}")
     print(f"{'='*70}")
 
-    return cos_price, dl_results
+    return cos_price, dl_result
 
 
 def run_phase1_d3():
-    """d=3: Compare DL models against high-quality MC."""
+    """d=3: Compare Triple-Net against high-quality MC."""
     print("\n" + "#" * 60)
     print("# Phase 1 — d = 3 (MC benchmark, 10M paths)")
     print("#" * 60)
@@ -113,32 +104,31 @@ def run_phase1_d3():
     ref_price = mc_result["price"]
     print(f"\nMC reference price: {ref_price:.8f} ± {mc_result['std_err']:.6f}")
 
-    # DL models
-    dl_results = run_dl_models(cfg)
+    # Triple-Net
+    dl_result = train_triple(cfg)
 
     # Summary table
+    ae = abs(dl_result["y0"] - ref_price)
+    re = ae / abs(ref_price) if ref_price != 0 else float("inf")
+
     print(f"\n{'='*70}")
     print(f"{'Method':<16} {'Price':>12} {'AbsErr':>12} {'RelErr':>12} {'Time(s)':>10}")
     print(f"{'-'*70}")
     print(f"{'MC (10M)':<16} {ref_price:>12.6f} {'—':>12} {'—':>12} "
           f"{mc_result['elapsed_s']:>10.1f}")
-    for r in dl_results:
-        ae = abs(r["y0"] - ref_price)
-        re = ae / abs(ref_price) if ref_price != 0 else float("inf")
-        print(f"{r['name']:<16} {r['y0']:>12.6f} {ae:>12.6f} {re:>12.6f} {r['elapsed']:>10.1f}")
+    print(f"{dl_result['name']:<16} {dl_result['y0']:>12.6f} {ae:>12.6f} {re:>12.6f} {dl_result['elapsed']:>10.1f}")
     print(f"{'='*70}")
 
-    return ref_price, dl_results
+    return ref_price, dl_result
 
 
-def plot_convergence(dl_results_list, dims, save_dir="figs"):
+def plot_convergence(dl_results, dims, save_dir="figs"):
     """Plot Y0 convergence curves for each dimension."""
     os.makedirs(save_dir, exist_ok=True)
-    for dim, results in zip(dims, dl_results_list):
+    for dim, r in zip(dims, dl_results):
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
-        for r in results:
-            ax1.plot(r["losses"], label=r["name"])
-            ax2.plot(r["y0s"],    label=r["name"])
+        ax1.plot(r["losses"], label=r["name"])
+        ax2.plot(r["y0s"],    label=r["name"])
         ax1.set_yscale("log")
         ax1.set(title=f"Training Loss (d={dim})", xlabel="Epoch", ylabel="MSE")
         ax1.legend()

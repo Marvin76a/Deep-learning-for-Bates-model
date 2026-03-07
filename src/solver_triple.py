@@ -23,7 +23,7 @@ class TripleSolver(nn.Module):
     def __init__(self, cfg: BatesConfig):
         super().__init__()
         self.cfg = cfg
-        inp = cfg.d + 2                              # [t_n, S_n, v_n^+]
+        inp = cfg.d + 1                              # [S_n, v_n^+]
 
         self.Y0 = nn.Parameter(torch.tensor(0.0))
 
@@ -42,8 +42,7 @@ class TripleSolver(nn.Module):
         for n in range(cfg.N):
             S_n = X[n, :, :cfg.d]
             v_n = torch.clamp(X[n, :, cfg.d:cfg.d + 1], min=0.0)
-            t_vec = torch.full((M, 1), n * dt, device=dev)
-            x_in = torch.cat([t_vec, S_n, v_n], dim=1)
+            x_in = torch.cat([S_n, v_n], dim=1)
 
             Z_S = self.net_zs[n](x_in)               # [M, d]
             Z_v = self.net_zv[n](x_in)               # [M, 1]

@@ -35,3 +35,6 @@ Thumbs.db
 # PyTorch checkpoints
 *.pt
 *.pth
+
+#for ai
+.cursor/

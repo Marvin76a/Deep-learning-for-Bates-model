@@ -80,7 +80,7 @@ class BarrierSolver(nn.Module):
     def __init__(self, cfg: BatesConfig):
         super().__init__()
         self.cfg = cfg
-        inp = cfg.d + 2
+        inp = cfg.d + 1
 
         self.Y0 = nn.Parameter(torch.tensor(0.0))
 
@@ -101,8 +101,7 @@ class BarrierSolver(nn.Module):
 
             S_n = X[n, :, :cfg.d]
             v_n = torch.clamp(X[n, :, cfg.d:cfg.d + 1], min=0.0)
-            t_vec = torch.full((M, 1), n * dt, device=dev)
-            x_in = torch.cat([t_vec, S_n, v_n], dim=1)
+            x_in = torch.cat([S_n, v_n], dim=1)
 
             Z_S = self.net_zs[n](x_in) * mask.unsqueeze(1)
             Z_v = self.net_zv[n](x_in) * mask.unsqueeze(1)
