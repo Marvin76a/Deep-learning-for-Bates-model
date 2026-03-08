@@ -88,7 +88,7 @@ class BarrierSolver(nn.Module):
         self.net_zv = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
         self.net_u  = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
 
-    def forward(self, X, dW_S, dW_v, dN_tilde, alive):
+    def forward(self, X, dW_S, dW_v_tilde, dN_tilde, alive):
         cfg = self.cfg
         dt = cfg.T / cfg.N
         M = X.shape[1]
@@ -109,7 +109,7 @@ class BarrierSolver(nn.Module):
 
             dY = (cfg.r * Y * dt
                   + (Z_S * dW_S[n]).sum(1)
-                  + (Z_v * dW_v[n]).sum(1)
+                  + (Z_v * dW_v_tilde[n]).sum(1)
                   + U * dN_tilde[n])
 
             Y = Y + dY * mask
@@ -138,12 +138,12 @@ def train(cfg: BatesConfig, verbose: bool = True):
         print(f"    Barrier={cfg.barrier}  Rebate={getattr(cfg, 'rebate', 0.0)}")
 
     for ep in range(cfg.epochs):
-        dW_S, dW_v, dN, dN_tilde, J = sample_noises(cfg, dev)
+        dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J = sample_noises(cfg, dev)
         with torch.no_grad():
             X, alive = generate_paths_with_barrier(cfg, dev, dW_S, dW_v, dN, J)
 
         model.train()
-        Y_pred, g_target = model(X, dW_S, dW_v, dN_tilde, alive)
+        Y_pred, g_target = model(X, dW_S, dW_v_tilde, dN_tilde, alive)
         loss = ((Y_pred - g_target) ** 2).mean()
 
         opt.zero_grad()

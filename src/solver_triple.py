@@ -31,7 +31,7 @@ class TripleSolver(nn.Module):
         self.net_zv = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
         self.net_u  = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
 
-    def forward(self, X, dW_S, dW_v, dN_tilde):
+    def forward(self, X, dW_S, dW_v_tilde, dN_tilde):
         cfg = self.cfg
         dt = cfg.T / cfg.N
         M = X.shape[1]
@@ -51,7 +51,7 @@ class TripleSolver(nn.Module):
             Y = Y + (
                 cfg.r * Y * dt
                 + (Z_S * dW_S[n]).sum(1)
-                + (Z_v * dW_v[n]).sum(1)
+                + (Z_v * dW_v_tilde[n]).sum(1)
                 + U * dN_tilde[n]
             )
 
@@ -75,12 +75,12 @@ def train(cfg: BatesConfig, verbose: bool = True):
         print(f"=== Triple-Net Basket (SVJDM)  d={cfg.d}  N={cfg.N}  M={cfg.M} ===")
 
     for ep in range(cfg.epochs):
-        dW_S, dW_v, dN, dN_tilde, J = sample_noises(cfg, dev)
+        dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J = sample_noises(cfg, dev)
         with torch.no_grad():
             X = generate_paths(cfg, dev, dW_S, dW_v, dN, J)
 
         model.train()
-        Y_pred, payoff = model(X, dW_S, dW_v, dN_tilde)
+        Y_pred, payoff = model(X, dW_S, dW_v_tilde, dN_tilde)
         loss = ((Y_pred - payoff) ** 2).mean()
 
         opt.zero_grad()

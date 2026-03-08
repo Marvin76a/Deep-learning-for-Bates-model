@@ -30,12 +30,12 @@ class SingleSolver(nn.Module):
             SubNet(x_dim, x_dim) for _ in range(cfg.N)
         ])
 
-    def forward(self, X, dW_S, dW_v, dN_tilde):
+    def forward(self, X, dW_S, dW_v_tilde, dN_tilde):
         cfg = self.cfg
         dt = cfg.T / cfg.N
         M = X.shape[1]
 
-        dW_full = torch.cat([dW_S, dW_v], dim=-1)     # [N, M, d+1]
+        dW_full = torch.cat([dW_S, dW_v_tilde], dim=-1)  # [N, M, d+1]
 
         Y = self.Y0.expand(M)
 
@@ -70,12 +70,12 @@ def train(cfg: BatesConfig, verbose: bool = True):
         print(f"=== Single-Net Basket (SVJDM)  d={cfg.d}  N={cfg.N}  M={cfg.M} ===")
 
     for ep in range(cfg.epochs):
-        dW_S, dW_v, dN, dN_tilde, J = sample_noises(cfg, dev)
+        dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J = sample_noises(cfg, dev)
         with torch.no_grad():
             X = generate_paths(cfg, dev, dW_S, dW_v, dN, J)
 
         model.train()
-        Y_pred, payoff = model(X, dW_S, dW_v, dN_tilde)
+        Y_pred, payoff = model(X, dW_S, dW_v_tilde, dN_tilde)
         loss = ((Y_pred - payoff) ** 2).mean()
 
         opt.zero_grad()

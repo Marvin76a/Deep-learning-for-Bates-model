@@ -57,7 +57,7 @@ def evaluate_survival_rate(cfg, n_eval=10, eval_batch=8192):
         eval_cfg = copy.copy(cfg)
         eval_cfg.M = eval_batch
         with torch.no_grad():
-            dW_S, dW_v, dN, dN_tilde, J = sample_noises(eval_cfg, cfg.device)
+            dW_S, dW_v, _dW_v_tilde, dN, dN_tilde, J = sample_noises(eval_cfg, cfg.device)
             _, alive = generate_paths_with_barrier(
                 eval_cfg, cfg.device, dW_S, dW_v, dN, J
             )

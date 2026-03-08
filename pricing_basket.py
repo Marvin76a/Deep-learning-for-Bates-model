@@ -98,6 +98,9 @@ def sample_noises(cfg, device):
     dW_S = dW[:, :, :cfg.d]                             # [N, M, d]
     dW_v = dW[:, :, cfg.d:]                             # [N, M, 1]
 
+    # Orthogonal variance driver (block-diagonal decoupling)
+    dW_v_tilde = dZ[:, :, cfg.d:] * sqrt_dt             # [N, M, 1]
+
     # Common Poisson arrivals (single process for all assets)
     dN = Poisson(cfg.lambda_ * dt).sample((cfg.N, cfg.M)).to(device)
     dN_tilde = dN - cfg.lambda_ * dt
@@ -106,7 +109,7 @@ def sample_noises(cfg, device):
     ln_J = cfg.mu_J + cfg.sigma_J * torch.randn(cfg.N, cfg.M, cfg.d, device=device)
     J = torch.exp(ln_J)
 
-    return dW_S, dW_v, dN, dN_tilde, J
+    return dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J
 
 
 def generate_paths(cfg, device, dW_S, dW_v, dN, J):
@@ -179,7 +182,7 @@ class BasketSolver(nn.Module):
         self.net_zv = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
         self.net_u  = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
 
-    def forward(self, X, dW_S, dW_v, dN_tilde):
+    def forward(self, X, dW_S, dW_v_tilde, dN_tilde):
         cfg = self.cfg
         dt = cfg.T / cfg.N
         M = X.shape[1]
@@ -197,10 +200,10 @@ class BasketSolver(nn.Module):
             Z_v = self.net_zv[n](x_in)                  # [M, 1]
             U   = self.net_u[n](x_in).squeeze(1)        # [M]
 
-            # BSDE forward:  dY = rY dt + Z_S^T dW_S + Z_v dW_v + U dN_tilde
+            # BSDE forward:  dY = rY dt + Z_S^T dW_S + Z_v dW_v_tilde + U dN_tilde
             Y = Y + (cfg.r * Y * dt
                      + (Z_S * dW_S[n]).sum(1)
-                     + (Z_v * dW_v[n]).sum(1)
+                     + (Z_v * dW_v_tilde[n]).sum(1)
                      + U * dN_tilde[n])
 
         # Basket call payoff:  g(S_T) = (sum w_i S_i^T  - K)^+
@@ -227,12 +230,12 @@ def train(cfg):
     print(f"=== Basket Option (SVJDM)  d={cfg.d}  N={cfg.N}  M={cfg.M} ===")
 
     for ep in range(cfg.epochs):
-        dW_S, dW_v, dN, dN_tilde, J = sample_noises(cfg, dev)
+        dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J = sample_noises(cfg, dev)
         with torch.no_grad():
             X = generate_paths(cfg, dev, dW_S, dW_v, dN, J)
 
         model.train()
-        Y_pred, payoff = model(X, dW_S, dW_v, dN_tilde)
+        Y_pred, payoff = model(X, dW_S, dW_v_tilde, dN_tilde)
         loss = ((Y_pred - payoff) ** 2).mean()
 
         opt.zero_grad()

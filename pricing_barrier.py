@@ -97,13 +97,16 @@ def sample_noises(cfg, device):
     dW_S = dW[:, :, :cfg.d]
     dW_v = dW[:, :, cfg.d:]
 
+    # Orthogonal variance driver (block-diagonal decoupling)
+    dW_v_tilde = dZ[:, :, cfg.d:] * sqrt_dt
+
     dN = Poisson(cfg.lambda_ * dt).sample((cfg.N, cfg.M)).to(device)
     dN_tilde = dN - cfg.lambda_ * dt
 
     ln_J = cfg.mu_J + cfg.sigma_J * torch.randn(cfg.N, cfg.M, cfg.d, device=device)
     J = torch.exp(ln_J)
 
-    return dW_S, dW_v, dN, dN_tilde, J
+    return dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J
 
 
 # ==========================================
@@ -223,14 +226,14 @@ class BarrierSolver(nn.Module):
         self.net_zv = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
         self.net_u  = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
 
-    def forward(self, X, dW_S, dW_v, dN_tilde, alive):
+    def forward(self, X, dW_S, dW_v_tilde, dN_tilde, alive):
         """
         Args:
-            X:         [N+1, M, d+1]  forward paths
-            dW_S:      [N, M, d]
-            dW_v:      [N, M, 1]
-            dN_tilde:  [N, M]
-            alive:     [N+1, M]       active mask from barrier tracking
+            X:           [N+1, M, d+1]  forward paths
+            dW_S:        [N, M, d]
+            dW_v_tilde:  [N, M, 1]      orthogonal variance driver
+            dN_tilde:    [N, M]
+            alive:       [N+1, M]       active mask from barrier tracking
         """
         cfg = self.cfg
         dt = cfg.T / cfg.N
@@ -254,7 +257,7 @@ class BarrierSolver(nn.Module):
 
             dY = (cfg.r * Y * dt
                   + (Z_S * dW_S[n]).sum(1)
-                  + (Z_v * dW_v[n]).sum(1)
+                  + (Z_v * dW_v_tilde[n]).sum(1)
                   + U * dN_tilde[n])
 
             Y = Y + dY * mask                           # freeze Y for knocked-out paths
@@ -286,12 +289,12 @@ def train(cfg):
     print(f"    Barrier={cfg.barrier}  Rebate={cfg.rebate}")
 
     for ep in range(cfg.epochs):
-        dW_S, dW_v, dN, dN_tilde, J = sample_noises(cfg, dev)
+        dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J = sample_noises(cfg, dev)
         with torch.no_grad():
             X, alive = generate_paths_with_barrier(cfg, dev, dW_S, dW_v, dN, J)
 
         model.train()
-        Y_pred, g_target = model(X, dW_S, dW_v, dN_tilde, alive)
+        Y_pred, g_target = model(X, dW_S, dW_v_tilde, dN_tilde, alive)
         loss = ((Y_pred - g_target) ** 2).mean()
 
         opt.zero_grad()

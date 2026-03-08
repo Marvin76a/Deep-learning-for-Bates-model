@@ -47,7 +47,7 @@ def mc_price_basket(
         batch_cfg = _temp_cfg(cfg, cur if not antithetic else cur // 2)
 
         with torch.no_grad():
-            dW_S, dW_v, dN, dN_tilde, J = sample_noises(batch_cfg, dev)
+            dW_S, dW_v, _dW_v_tilde, dN, dN_tilde, J = sample_noises(batch_cfg, dev)
 
             if antithetic:
                 # Original paths

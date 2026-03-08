@@ -17,7 +17,8 @@ def sample_noises(cfg: BatesConfig, device: torch.device):
     Returns
     -------
     dW_S : Tensor [N, M, d]   – correlated asset Brownian increments
-    dW_v : Tensor [N, M, 1]   – variance Brownian increments
+    dW_v : Tensor [N, M, 1]   – correlated variance Brownian increments (for forward SDE)
+    dW_v_tilde : Tensor [N, M, 1] – orthogonal variance driver (for BSDE backward pass)
     dN   : Tensor [N, M]      – Poisson jump counts
     dN_tilde : Tensor [N, M]  – compensated Poisson increments
     J    : Tensor [N, M, d]   – log-normal relative jump sizes
@@ -32,6 +33,10 @@ def sample_noises(cfg: BatesConfig, device: torch.device):
     dW_S = dW[:, :, :cfg.d]                          # [N, M, d]
     dW_v = dW[:, :, cfg.d:]                          # [N, M, 1]
 
+    # Orthogonal variance driver: raw dZ_{d+1} is natively independent
+    # of the asset subspace thanks to the lower-triangular Cholesky geometry.
+    dW_v_tilde = dZ[:, :, cfg.d:] * sqrt_dt          # [N, M, 1]
+
     # Common Poisson arrivals (single process for all assets)
     dN = Poisson(cfg.lambda_ * dt).sample((cfg.N, cfg.M)).to(device)
     dN_tilde = dN - cfg.lambda_ * dt
@@ -40,7 +45,7 @@ def sample_noises(cfg: BatesConfig, device: torch.device):
     ln_J = cfg.mu_J + cfg.sigma_J * torch.randn(cfg.N, cfg.M, cfg.d, device=device)
     J = torch.exp(ln_J)
 
-    return dW_S, dW_v, dN, dN_tilde, J
+    return dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J
 
 
 def generate_paths(cfg: BatesConfig, device: torch.device, dW_S, dW_v, dN, J):

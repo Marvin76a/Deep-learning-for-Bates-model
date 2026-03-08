@@ -68,12 +68,12 @@ def train_variant(cfg, optimizer_cls, use_schedule, verbose=True):
     t0 = time.time()
 
     for ep in range(cfg.epochs):
-        dW_S, dW_v, dN, dN_tilde, J = sample_noises(cfg, dev)
+        dW_S, dW_v, dW_v_tilde, dN, dN_tilde, J = sample_noises(cfg, dev)
         with torch.no_grad():
             X = generate_paths(cfg, dev, dW_S, dW_v, dN, J)
 
         model.train()
-        Y_pred, payoff = model(X, dW_S, dW_v, dN_tilde)
+        Y_pred, payoff = model(X, dW_S, dW_v_tilde, dN_tilde)
         loss = ((Y_pred - payoff) ** 2).mean()
 
         opt.zero_grad()

@@ -114,7 +114,7 @@ def mc_greeks_fd(cfg, n_paths=MC_PATHS, batch_size=MC_BATCH,
         bcfg.M = cur
 
         with torch.no_grad():
-            dW_S, dW_v, dN, dN_tilde, J = sample_noises(bcfg, dev)
+            dW_S, dW_v, _dW_v_tilde, dN, dN_tilde, J = sample_noises(bcfg, dev)
 
             # --- Delta: bump S0 for all assets ---
             bcfg_up = copy.copy(bcfg); bcfg_up.S0 = cfg.S0 + eps_S
