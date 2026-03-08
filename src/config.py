@@ -30,6 +30,8 @@ class BatesConfig:
         sigma_J: float = 0.2,
         K: float = 1.0,
         payoff_type: str = "basket",
+        barrier: float = 0.0,
+        rebate: float = 0.0,
         epochs: int = 3000,
         lr: float = 1e-3,
         seed: int = 42,
@@ -59,6 +61,8 @@ class BatesConfig:
 
         self.K = K
         self.payoff_type = payoff_type
+        self.barrier = barrier
+        self.rebate = rebate
 
         self.epochs = epochs
         self.lr = lr

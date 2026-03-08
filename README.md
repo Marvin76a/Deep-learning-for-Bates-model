@@ -61,6 +61,12 @@ python experiments/ablation_model.py
 
 # Greeks extraction (d=50) — Delta & Vega vs MC finite difference
 python experiments/greeks_extraction.py
+
+# Phase 3: barrier level sensitivity (d=50) — price vs barrier level
+python experiments/phase3_barrier_level.py
+
+# Phase 4: jump impact on knock-outs (d=50, B=0.7) — price & KO rate vs lambda
+python experiments/phase4_barrier_jump.py
 ```
 
 ### Train a single model
