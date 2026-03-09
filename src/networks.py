@@ -44,9 +44,9 @@ class BNNet(nn.Module):
         self.bn0 = nn.BatchNorm1d(in_dim)
         self.layers = nn.Sequential(
             nn.Linear(in_dim, h),
-            nn.BatchNorm1d(h), nn.ReLU(),
+            nn.ReLU(),
             nn.Linear(h, h),
-            nn.BatchNorm1d(h), nn.ReLU(),
+            nn.ReLU(),
             nn.Linear(h, out_dim),
         )
 
