@@ -16,6 +16,7 @@ Outputs
 import sys
 import os
 import time
+import datetime
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
@@ -143,6 +144,32 @@ def plot_convergence(dl_results, dims, save_dir="figs"):
 
 
 if __name__ == "__main__":
+    # -------------------------------------------------------------------
+    # Logging: tee stdout/stderr to a dated log file in this directory
+    # -------------------------------------------------------------------
+    script_dir = os.path.dirname(__file__)
+    script_name = os.path.splitext(os.path.basename(__file__))[0]
+    timestamp = datetime.datetime.now().strftime("%Y%m%d")
+    log_path = os.path.join(script_dir, f"{script_name}_{timestamp}.log")
+
+    class _Tee:
+        def __init__(self, *streams):
+            self.streams = streams
+
+        def write(self, data):
+            for s in self.streams:
+                s.write(data)
+                s.flush()
+
+        def flush(self):
+            for s in self.streams:
+                s.flush()
+
+    _log_file = open(log_path, "w", buffering=1, encoding="utf-8")
+    sys.stdout = _Tee(sys.stdout, _log_file)
+    sys.stderr = _Tee(sys.stderr, _log_file)
+    print(f"Logging to {log_path}")
+
     _, dl1 = run_phase1_d1()
     _, dl3 = run_phase1_d3()
     plot_convergence([dl1, dl3], [1, 3])

@@ -25,6 +25,7 @@ import sys
 import os
 import time
 import copy
+import datetime
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
@@ -45,7 +46,7 @@ EPOCHS = 3000
 N_STEPS = 100
 BATCH_SIZE = 1024
 
-MC_PATHS = 500_000
+MC_PATHS = 10_000_000
 MC_BATCH = 25_000
 EPS_S = 0.01          # S0 bump for Delta  (1% of S0=1.0)
 EPS_V = 0.002         # v0 bump for Vega   (5% of v0=0.04)
@@ -203,5 +204,31 @@ def run_greeks():
 
 
 if __name__ == "__main__":
+    # -------------------------------------------------------------------
+    # Logging: tee stdout/stderr to a dated log file in this directory
+    # -------------------------------------------------------------------
+    script_dir = os.path.dirname(__file__)
+    script_name = os.path.splitext(os.path.basename(__file__))[0]
+    timestamp = datetime.datetime.now().strftime("%Y%m%d")
+    log_path = os.path.join(script_dir, f"{script_name}_{timestamp}.log")
+
+    class _Tee:
+        def __init__(self, *streams):
+            self.streams = streams
+
+        def write(self, data):
+            for s in self.streams:
+                s.write(data)
+                s.flush()
+
+        def flush(self):
+            for s in self.streams:
+                s.flush()
+
+    _log_file = open(log_path, "w", buffering=1, encoding="utf-8")
+    sys.stdout = _Tee(sys.stdout, _log_file)
+    sys.stderr = _Tee(sys.stderr, _log_file)
+    print(f"Logging to {log_path}")
+
     run_greeks()
     print("\nGreeks extraction complete.")
