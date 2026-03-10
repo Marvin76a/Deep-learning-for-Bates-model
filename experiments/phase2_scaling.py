@@ -92,17 +92,17 @@ def mc_greeks_fd_timed(cfg, n_paths=MC_GREEKS_PATHS, batch_size=MC_GREEKS_BATCH,
         with torch.no_grad():
             dW_S, dW_v, _, dN, _, J = sample_noises(bcfg, dev)
 
-            S0_base = np.full(d, cfg.S0)
+            S0_base = torch.full((d,), cfg.S0, dtype=torch.float32, device=dev)
 
             for i in range(d):
-                S0_up = S0_base.copy()
+                S0_up = S0_base.clone()
                 S0_up[i] += eps_S
                 bcfg_up = copy.copy(bcfg)
                 bcfg_up.S0 = S0_up
                 X_up = generate_paths(bcfg_up, dev, dW_S, dW_v, dN, J)
                 _basket_payoff(X_up, cfg, dev)
 
-                S0_dn = S0_base.copy()
+                S0_dn = S0_base.clone()
                 S0_dn[i] -= eps_S
                 bcfg_dn = copy.copy(bcfg)
                 bcfg_dn.S0 = S0_dn

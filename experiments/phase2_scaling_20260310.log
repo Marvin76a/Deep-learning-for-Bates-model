@@ -1,0 +1,76 @@
+Logging to f:\study\code\svjdm\experiments\phase2_scaling_20260310.log
+
+############################################################
+# d = 1
+############################################################
+COS exact price: 0.13705818  (0.0030s)
+
+Training Triple-Net  d=1 ...
+=== Triple-Net Basket (SVJDM)  d=1  N=100  M=1024 ===
+  Epoch    0 | Loss 1.4365e-01 | Y0 0.001000 | 2.6s
+  Epoch   99 | Loss 2.8095e-02 | Y0 0.084658 | 47.0s
+Training complete.  Y0 = 0.084658  (47.0s)
+
+############################################################
+# d = 3
+############################################################
+  MC price = 0.142333 ± 0.012766  (0.1s, 5 paths)
+MC reference: 0.142333 ± 0.025020 (0.1s)
+
+Timing MC Greeks FD  d=3 ...
+  MC Greeks FD batch 5: 125000/1000000
+  MC Greeks FD batch 10: 250000/1000000
+  MC Greeks FD batch 15: 375000/1000000
+  MC Greeks FD batch 20: 500000/1000000
+  MC Greeks FD batch 25: 625000/1000000
+  MC Greeks FD batch 30: 750000/1000000
+  MC Greeks FD batch 35: 875000/1000000
+  MC Greeks FD batch 40: 1000000/1000000
+  MC Greeks FD (d=3, 2d=6 passes) completed in 19.1s
+
+Training Triple-Net  d=3 ...
+=== Triple-Net Basket (SVJDM)  d=3  N=100  M=1024 ===
+  Epoch    0 | Loss 1.6362e-01 | Y0 0.001000 | 0.6s
+  Epoch   99 | Loss 9.2385e-03 | Y0 0.077884 | 45.7s
+Training complete.  Y0 = 0.077884  (45.7s)
+
+############################################################
+# d = 10
+############################################################
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths

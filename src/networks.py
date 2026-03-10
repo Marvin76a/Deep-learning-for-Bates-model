@@ -41,7 +41,8 @@ class BNNet(nn.Module):
     def __init__(self, in_dim: int, out_dim: int):
         super().__init__()
         h = in_dim + 20
-        self.bn0 = nn.BatchNorm1d(in_dim)
+        
+        
         self.layers = nn.Sequential(
             nn.Linear(in_dim, h),
             nn.ReLU(),
