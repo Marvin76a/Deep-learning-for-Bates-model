@@ -148,17 +148,42 @@ def mc_greeks_fd(cfg, n_paths=MC_PATHS, batch_size=MC_BATCH,
     n = len(delta_all)
     sqrt_v0 = np.sqrt(cfg.v0)
 
-    z_s_sum = float(np.mean(delta_all)) * cfg.S0 * sqrt_v0
-    z_s_se = float(np.std(delta_all, ddof=1) / np.sqrt(n)) * cfg.S0 * sqrt_v0
+    # -----------------------------------------------------------------
+    # Pure partial derivatives in the physical coordinate system
+    # -----------------------------------------------------------------
+    mc_delta_pure = float(np.mean(delta_all)) * cfg.S0 * sqrt_v0
+    mc_vega_pure  = float(np.mean(vega_all)) * cfg.sigma_v * sqrt_v0
+    mc_delta_se   = float(np.std(delta_all, ddof=1) / np.sqrt(n)) * cfg.S0 * sqrt_v0
+    mc_vega_se    = float(np.std(vega_all, ddof=1) / np.sqrt(n)) * cfg.sigma_v * sqrt_v0
 
-    z_v = float(np.mean(vega_all)) * cfg.sigma_v * sqrt_v0
-    z_v_se = float(np.std(vega_all, ddof=1) / np.sqrt(n)) * cfg.sigma_v * sqrt_v0
+    # -----------------------------------------------------------------
+    # Cholesky projection: map MC derivatives to the NN's orthogonal basis
+    # -----------------------------------------------------------------
+    L_full = cfg.L_full                            # (d+1) x (d+1), already computed
+    L_S  = L_full[:cfg.d, :cfg.d]                  # d x d  asset block
+    L_vS = L_full[-1, :cfg.d]                      # d,     cross-correlation row
+    L_vv = L_full[-1, -1]                          # scalar diagonal entry
+
+    # Vega: scale by the orthogonal factor L_vv
+    z_v    = mc_vega_pure * L_vv
+    z_v_se = mc_vega_se   * L_vv
+
+    # Delta: add the leverage-spillover correction  L_S^{-T} @ L_vS
+    spillover_coeffs = np.linalg.solve(L_S.T, L_vS)
+    spillover = float(np.sum(spillover_coeffs)) * mc_vega_pure
+    z_s_sum = mc_delta_pure + spillover
+    z_s_se  = mc_delta_se
 
     if verbose:
         print(f"  MC Greeks computed in {elapsed:.1f}s ({n} paths)")
+        print(f"  Pure Delta (Σ): {mc_delta_pure:.6f}  |  Spillover: {spillover:.6f}")
+        print(f"  Projected Delta (Σ Z_S): {z_s_sum:.6f}")
+        print(f"  Pure Vega: {mc_vega_pure:.6f}  |  L_vv: {L_vv:.4f}")
+        print(f"  Projected Vega (Z_v): {z_v:.6f}")
 
     return {"z_s_sum": z_s_sum, "z_s_se": z_s_se,
-            "z_v": z_v, "z_v_se": z_v_se, "elapsed_s": elapsed}
+            "z_v": z_v, "z_v_se": z_v_se, "elapsed_s": elapsed,
+            "mc_delta_pure": mc_delta_pure, "mc_vega_pure": mc_vega_pure}
 
 
 # -----------------------------------------------------------------------
@@ -186,18 +211,25 @@ def run_greeks():
     mc = mc_greeks_fd(cfg)
 
     # --- Summary table ---
-    w = 78
+    w = 82
     print(f"\n{'='*w}")
-    print(f"  Initial Greeks Extraction at t=0  (d={DIM} Basket Option)")
+    print(f"  Greeks Extraction at t=0  (d={DIM} Basket Option)")
+    print(f"  MC results projected to NN's orthogonal basis via Cholesky")
     print(f"{'='*w}")
-    print(f"{'Risk Parameter':<32} {'MC (Finite Diff.)':>22} {'Our Model (NN)':>20}")
+    print(f"{'Risk Parameter':<34} {'MC (Projected)':>24} {'Our Model (NN)':>20}")
     print(f"{'-'*w}")
-    print(f"{'Delta Exposure (Σ Z_S)':<32} "
-          f"{mc['z_s_sum']:>9.6f} +/- {mc['z_s_se']:.6f} "
+    print(f"{'Delta Exposure (Σ Z_S)':<34} "
+          f"{mc['z_s_sum']:>10.6f} ± {mc['z_s_se']:.6f} "
           f"{nn_delta_sum:>20.6f}")
-    print(f"{'Vega Exposure  (Z_v)':<32} "
-          f"{mc['z_v']:>9.6f} +/- {mc['z_v_se']:.6f} "
+    print(f"{'Vega Exposure  (Z_v)':<34} "
+          f"{mc['z_v']:>10.6f} ± {mc['z_v_se']:.6f} "
           f"{nn_vega:>20.6f}")
+    print(f"{'-'*w}")
+    print(f"{'MC Pure Delta (Σ, pre-proj.)':<34} "
+          f"{mc['mc_delta_pure']:>10.6f}")
+    print(f"{'MC Pure Vega  (pre-proj.)':<34} "
+          f"{mc['mc_vega_pure']:>10.6f}")
+    print(f"{'MC elapsed':<34} {mc['elapsed_s']:>10.1f} s")
     print(f"{'='*w}")
 
     return {"nn_delta": nn_delta_sum, "nn_vega": nn_vega, "mc": mc}

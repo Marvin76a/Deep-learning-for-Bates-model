@@ -20,17 +20,21 @@ Outputs
 
 import sys
 import os
+import copy
 import time
 import datetime
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import numpy as np
+import torch
 import matplotlib.pyplot as plt
 
 from src.config import BatesConfig
 from src.cos_bates import cos_price_from_config
 from src.mc_bates import mc_price_basket
+from src.bates_sde import sample_noises, generate_paths
+from src.utils import set_seed
 from src import solver_triple
 
 
@@ -50,6 +54,74 @@ MC_PATHS = {
     200: 10_000_000,
 }
 MC_BATCH = 50_000
+
+MC_GREEKS_PATHS = 1_000_000
+MC_GREEKS_BATCH = 25_000
+EPS_S = 0.01
+
+
+def _basket_payoff(X, cfg, dev):
+    w = torch.tensor(cfg.weights, dtype=torch.float32, device=dev)
+    return torch.clamp((w * X[-1, :, :cfg.d]).sum(1) - cfg.K, min=0.0)
+
+
+def mc_greeks_fd_timed(cfg, n_paths=MC_GREEKS_PATHS, batch_size=MC_GREEKS_BATCH,
+                       eps_S=EPS_S, seed=42, verbose=True):
+    """Per-asset finite-difference Delta timing (2d forward passes with CRN).
+
+    Bumps S_0^{(i)} individually for each asset i in 0..d-1 to compute
+    the full d-dimensional Delta vector.  Returns the total wall-clock
+    time for the 2d forward passes, demonstrating O(d^2) scaling.
+    """
+    set_seed(seed)
+    dev = cfg.device
+    d = cfg.d
+
+    remaining = n_paths
+    batch_id = 0
+
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
+    t0 = time.perf_counter()
+
+    while remaining > 0:
+        cur = min(batch_size, remaining)
+        bcfg = copy.copy(cfg)
+        bcfg.M = cur
+
+        with torch.no_grad():
+            dW_S, dW_v, _, dN, _, J = sample_noises(bcfg, dev)
+
+            S0_base = np.full(d, cfg.S0)
+
+            for i in range(d):
+                S0_up = S0_base.copy()
+                S0_up[i] += eps_S
+                bcfg_up = copy.copy(bcfg)
+                bcfg_up.S0 = S0_up
+                X_up = generate_paths(bcfg_up, dev, dW_S, dW_v, dN, J)
+                _basket_payoff(X_up, cfg, dev)
+
+                S0_dn = S0_base.copy()
+                S0_dn[i] -= eps_S
+                bcfg_dn = copy.copy(bcfg)
+                bcfg_dn.S0 = S0_dn
+                X_dn = generate_paths(bcfg_dn, dev, dW_S, dW_v, dN, J)
+                _basket_payoff(X_dn, cfg, dev)
+
+        remaining -= cur
+        batch_id += 1
+        if verbose and batch_id % 5 == 0:
+            done = n_paths - remaining
+            print(f"  MC Greeks FD batch {batch_id}: {done}/{n_paths}")
+
+    if torch.cuda.is_available():
+        torch.cuda.synchronize()
+    elapsed = time.perf_counter() - t0
+
+    if verbose:
+        print(f"  MC Greeks FD (d={d}, 2d={2*d} passes) completed in {elapsed:.1f}s")
+    return elapsed
 
 
 def run_for_dim(d):
@@ -84,6 +156,14 @@ def run_for_dim(d):
         print(f"MC reference: {mc_result['price']:.6f} ± {ci_95:.6f} "
               f"({mc_result['elapsed_s']:.1f}s)")
 
+    # MC Greeks timing (per-asset finite-difference Delta)
+    if d >= 3:
+        print(f"\nTiming MC Greeks FD  d={d} ...")
+        mc_greeks_time = mc_greeks_fd_timed(cfg)
+        row["mc_greeks_time"] = mc_greeks_time
+    else:
+        row["mc_greeks_time"] = None
+
     # Triple-Net
     print(f"\nTraining Triple-Net  d={d} ...")
     _, losses, y0s, elapsed = solver_triple.train(cfg, verbose=True)
@@ -97,10 +177,11 @@ def run_for_dim(d):
 
 def print_scaling_table(rows):
     """Print the unified scaling table matching the thesis format."""
-    w = 100
+    w = 120
     print(f"\n{'='*w}")
     print(f"{'Dimension (d)':<20} {'MC Benchmark (95% CI)':>24} "
-          f"{'Our Model (Y0)':>16} {'MC Time (s)':>12} {'Our Time (per 1k ep, s)':>24}")
+          f"{'Our Model (Y0)':>16} {'MC Price (s)':>13} "
+          f"{'MC Greeks (s)':>14} {'Our Time (per 1k ep, s)':>24}")
     print(f"{'-'*w}")
     for r in rows:
         d_str = f"{r['d']} ({r['label']})"
@@ -111,9 +192,11 @@ def print_scaling_table(rows):
             mc_str = f"{r['ref_price']:.4f}"
 
         mc_time_str = f"{r['mc_time']:.1f}" if r["mc_time"] is not None else "-"
+        mc_greeks_str = f"{r['mc_greeks_time']:.1f}" if r["mc_greeks_time"] is not None else "-"
 
         print(f"{d_str:<20} {mc_str:>24} "
-              f"{r['y0']:>16.4f} {mc_time_str:>12} {r['dl_time_per1k']:>24.1f}")
+              f"{r['y0']:>16.4f} {mc_time_str:>13} "
+              f"{mc_greeks_str:>14} {r['dl_time_per1k']:>24.1f}")
     print(f"{'='*w}")
 
 
@@ -125,11 +208,16 @@ def plot_time_vs_dim(rows, save_dir="figs"):
     mc_dims = [r["d"] for r in mc_rows]
     mc_times = [r["mc_time"] for r in mc_rows]
 
+    mc_g_rows = [r for r in rows if r["mc_greeks_time"] is not None]
+    mc_g_dims = [r["d"] for r in mc_g_rows]
+    mc_g_times = [r["mc_greeks_time"] for r in mc_g_rows]
+
     all_dims = [r["d"] for r in rows]
     dl_times = [r["dl_time_per1k"] for r in rows]
 
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.plot(mc_dims, mc_times, "s--", label="MC", linewidth=2)
+    ax.plot(mc_dims, mc_times, "s--", label="MC Price", linewidth=2)
+    ax.plot(mc_g_dims, mc_g_times, "D--", label="MC Greeks (FD, per-asset)", linewidth=2)
     ax.plot(all_dims, dl_times, "o-", label="Triple-Net (ours, per 1k epochs)", linewidth=2)
 
     ax.set_xlabel("Dimension d", fontsize=13)

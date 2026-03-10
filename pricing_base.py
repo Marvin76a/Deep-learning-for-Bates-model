@@ -142,7 +142,7 @@ def basic_train(config):
     device = config.device
     print("Device:", device)
     model = BSDESolver(config).to(device)
-    optimizer = optim.NAdam(model.parameters(), lr=config.lr)
+    optimizer = optim.AdamW(model.parameters(), lr=config.lr)
     train_loss_history = []
     val_loss_history = []
     train_y0_history = []

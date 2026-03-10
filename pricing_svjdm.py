@@ -236,7 +236,7 @@ def train_solver(config):
     
     # 实例化模型
     model = BSDE_SVJ_Solver(config).to(device)
-    optimizer = optim.NAdam(model.parameters(), lr=config.lr)
+    optimizer = optim.AdamW(model.parameters(), lr=config.lr)
     # 学习率衰减策略
     scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=[1500, 2500], gamma=0.1)
     

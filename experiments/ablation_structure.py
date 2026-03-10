@@ -2,13 +2,17 @@
 
 Purpose
 -------
-Isolate the contributions of Nesterov momentum and learning-rate scheduling
-to training convergence, using a 2x2 controlled-variable design:
+Isolate the contributions of decoupled weight decay and learning-rate
+scheduling to training convergence, using a 2x2 controlled-variable design:
 
   A) Adam  + Constant LR   — baseline
-  B) NAdam + Constant LR   — Nesterov momentum accelerates early convergence
+  B) AdamW + Constant LR   — decoupled weight decay regularises scale disparities
   C) Adam  + Scheduled LR  — LR decay suppresses late-stage MSE oscillation
-  D) NAdam + Scheduled LR  — best of both: fastest convergence + smoothest tail
+  D) AdamW + Scheduled LR  — best of both: regularisation + smooth tail
+
+AdamW's decoupled weight decay is theoretically better suited to regularise
+the massive scale disparities between asset prices and CIR variance under
+the extreme noise introduced by Poisson jumps in high dimensions.
 
 All four groups share the same network architecture (Triple-Net) and the
 same random seed so that only the optimiser / schedule differs.
@@ -17,7 +21,7 @@ Outputs
 -------
   - Summary table  (final Y0, final Loss, training time)
   - Single log-scale Loss plot with 4 curves
-      colour  -> optimiser  (blue = NAdam, red = Adam)
+      colour  -> optimiser  (blue = AdamW, red = Adam)
       line    -> schedule   (solid = Scheduled, dashed = Constant)
   - Saved to figs/ablation_structure_d50.png
 """
@@ -48,10 +52,10 @@ N_STEPS = 100
 BATCH_SIZE = 1024
 
 GROUPS = [
-    ("Adam + Constant LR",   optim.Adam,  False),
-    ("NAdam + Constant LR",  optim.NAdam, False),
-    ("Adam + Scheduled LR",  optim.Adam,  True),
-    ("NAdam + Scheduled LR", optim.NAdam, True),
+    ("Adam + Constant LR",    optim.Adam,  False),
+    ("AdamW + Constant LR",   optim.AdamW, False),
+    ("Adam + Scheduled LR",   optim.Adam,  True),
+    ("AdamW + Scheduled LR",  optim.AdamW, True),
 ]
 
 
@@ -104,13 +108,13 @@ STYLE_MAP = {
     #                          colour   linestyle
     ("Adam",  False):         ("#d62728", "--"),    # red  dashed
     ("Adam",  True):          ("#d62728", "-"),     # red  solid
-    ("NAdam", False):         ("#1f77b4", "--"),    # blue dashed
-    ("NAdam", True):          ("#1f77b4", "-"),     # blue solid
+    ("AdamW", False):         ("#1f77b4", "--"),    # blue dashed
+    ("AdamW", True):          ("#1f77b4", "-"),     # blue solid
 }
 
 
 def _style_key(name, use_schedule):
-    opt_key = "NAdam" if "NAdam" in name else "Adam"
+    opt_key = "AdamW" if "AdamW" in name else "Adam"
     return (opt_key, use_schedule)
 
 
