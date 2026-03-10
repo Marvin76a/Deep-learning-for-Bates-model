@@ -1,4 +1,4 @@
-nohup: ignoring input
+Logging to /home/admin2/svjdm/experiments/phase2_scaling_20260309.log
 
 ############################################################
 # d = 1
@@ -8,37 +8,37 @@ COS exact price: 0.13705818  (0.0024s)
 Training Triple-Net  d=1 ...
 === Triple-Net Basket (SVJDM)  d=1  N=100  M=1024 ===
   Epoch    0 | Loss 1.3639e-01 | Y0 0.001056 | 0.5s
-  Epoch  100 | Loss 2.7548e-02 | Y0 0.079868 | 23.1s
-  Epoch  200 | Loss 2.2912e-02 | Y0 0.121338 | 45.6s
+  Epoch  100 | Loss 2.7548e-02 | Y0 0.079868 | 22.9s
+  Epoch  200 | Loss 2.2912e-02 | Y0 0.121338 | 45.3s
   Epoch  300 | Loss 2.0790e-02 | Y0 0.134276 | 67.9s
-  Epoch  400 | Loss 1.8843e-02 | Y0 0.135908 | 90.1s
-  Epoch  500 | Loss 2.1532e-02 | Y0 0.137293 | 112.4s
-  Epoch  600 | Loss 2.5288e-02 | Y0 0.136860 | 134.8s
-  Epoch  700 | Loss 2.2810e-02 | Y0 0.136748 | 157.0s
-  Epoch  800 | Loss 2.2447e-02 | Y0 0.137090 | 179.4s
-  Epoch  900 | Loss 2.7743e-02 | Y0 0.137737 | 201.8s
-  Epoch 1000 | Loss 2.0215e-02 | Y0 0.137798 | 224.0s
-  Epoch 1100 | Loss 1.8458e-02 | Y0 0.137711 | 246.2s
-  Epoch 1200 | Loss 2.7003e-02 | Y0 0.138142 | 268.5s
-  Epoch 1300 | Loss 2.6250e-02 | Y0 0.137441 | 290.7s
-  Epoch 1400 | Loss 1.9374e-02 | Y0 0.137211 | 313.0s
-  Epoch 1500 | Loss 2.0275e-02 | Y0 0.137296 | 335.3s
-  Epoch 1600 | Loss 1.7782e-02 | Y0 0.137308 | 357.5s
-  Epoch 1700 | Loss 2.2346e-02 | Y0 0.137075 | 379.7s
-  Epoch 1800 | Loss 2.1416e-02 | Y0 0.137511 | 402.0s
-  Epoch 1900 | Loss 1.8962e-02 | Y0 0.137248 | 424.3s
-  Epoch 2000 | Loss 1.9975e-02 | Y0 0.137317 | 446.5s
-  Epoch 2100 | Loss 2.0964e-02 | Y0 0.136864 | 468.9s
-  Epoch 2200 | Loss 1.6822e-02 | Y0 0.136694 | 491.1s
-  Epoch 2300 | Loss 1.7930e-02 | Y0 0.136898 | 513.3s
-  Epoch 2400 | Loss 1.9213e-02 | Y0 0.137337 | 535.7s
-  Epoch 2500 | Loss 1.9008e-02 | Y0 0.137376 | 557.8s
-  Epoch 2600 | Loss 2.0797e-02 | Y0 0.137363 | 580.1s
-  Epoch 2700 | Loss 1.5063e-02 | Y0 0.137238 | 602.5s
-  Epoch 2800 | Loss 1.8926e-02 | Y0 0.137212 | 624.8s
-  Epoch 2900 | Loss 1.7868e-02 | Y0 0.137196 | 647.2s
-  Epoch 2999 | Loss 2.2148e-02 | Y0 0.137140 | 669.3s
-Training complete.  Y0 = 0.137140  (669.3s)
+  Epoch  400 | Loss 1.8843e-02 | Y0 0.135908 | 90.4s
+  Epoch  500 | Loss 2.1532e-02 | Y0 0.137293 | 112.9s
+  Epoch  600 | Loss 2.5288e-02 | Y0 0.136860 | 135.4s
+  Epoch  700 | Loss 2.2810e-02 | Y0 0.136748 | 157.7s
+  Epoch  800 | Loss 2.2447e-02 | Y0 0.137090 | 180.2s
+  Epoch  900 | Loss 2.7743e-02 | Y0 0.137737 | 202.7s
+  Epoch 1000 | Loss 2.0215e-02 | Y0 0.137798 | 225.0s
+  Epoch 1100 | Loss 1.8458e-02 | Y0 0.137711 | 247.5s
+  Epoch 1200 | Loss 2.7003e-02 | Y0 0.138142 | 270.1s
+  Epoch 1300 | Loss 2.6250e-02 | Y0 0.137441 | 292.6s
+  Epoch 1400 | Loss 1.9374e-02 | Y0 0.137211 | 315.0s
+  Epoch 1500 | Loss 2.0275e-02 | Y0 0.137296 | 338.4s
+  Epoch 1600 | Loss 1.7782e-02 | Y0 0.137308 | 361.0s
+  Epoch 1700 | Loss 2.2346e-02 | Y0 0.137075 | 383.5s
+  Epoch 1800 | Loss 2.1416e-02 | Y0 0.137511 | 406.2s
+  Epoch 1900 | Loss 1.8962e-02 | Y0 0.137248 | 428.8s
+  Epoch 2000 | Loss 1.9975e-02 | Y0 0.137317 | 451.5s
+  Epoch 2100 | Loss 2.0964e-02 | Y0 0.136864 | 474.1s
+  Epoch 2200 | Loss 1.6822e-02 | Y0 0.136694 | 496.7s
+  Epoch 2300 | Loss 1.7930e-02 | Y0 0.136898 | 519.4s
+  Epoch 2400 | Loss 1.9213e-02 | Y0 0.137337 | 542.0s
+  Epoch 2500 | Loss 1.9008e-02 | Y0 0.137376 | 564.5s
+  Epoch 2600 | Loss 2.0797e-02 | Y0 0.137363 | 587.8s
+  Epoch 2700 | Loss 1.5063e-02 | Y0 0.137238 | 610.4s
+  Epoch 2800 | Loss 1.8926e-02 | Y0 0.137212 | 633.0s
+  Epoch 2900 | Loss 1.7868e-02 | Y0 0.137196 | 656.4s
+  Epoch 2999 | Loss 2.2148e-02 | Y0 0.137140 | 679.5s
+Training complete.  Y0 = 0.137140  (679.5s)
 
 ############################################################
 # d = 3
@@ -83,227 +83,377 @@ Training complete.  Y0 = 0.137140  (669.3s)
   MC batch 190: 9500000/10000000 paths
   MC batch 195: 9750000/10000000 paths
   MC batch 200: 10000000/10000000 paths
-  MC price = 0.106080 ± 0.000037  (18.2s, 5000000 paths)
-MC reference: 0.106080 ± 0.000072 (18.2s)
+  MC price = 0.106080 ± 0.000037  (18.3s, 5000000 paths)
+MC reference: 0.106080 ± 0.000072 (18.3s)
 
 Training Triple-Net  d=3 ...
 === Triple-Net Basket (SVJDM)  d=3  N=100  M=1024 ===
   Epoch    0 | Loss 1.6133e-01 | Y0 0.001056 | 0.3s
-  Epoch  100 | Loss 9.9614e-03 | Y0 0.073722 | 22.9s
-  Epoch  200 | Loss 8.0129e-03 | Y0 0.100644 | 45.3s
-  Epoch  300 | Loss 7.2643e-03 | Y0 0.104939 | 67.7s
-  Epoch  400 | Loss 7.2075e-03 | Y0 0.105879 | 90.3s
-  Epoch  500 | Loss 8.2560e-03 | Y0 0.106641 | 112.7s
-  Epoch  600 | Loss 9.1720e-03 | Y0 0.106236 | 135.1s
-  Epoch  700 | Loss 6.9126e-03 | Y0 0.106048 | 157.6s
-  Epoch  800 | Loss 6.7746e-03 | Y0 0.105791 | 180.1s
-  Epoch  900 | Loss 6.3494e-03 | Y0 0.106160 | 202.5s
-  Epoch 1000 | Loss 7.4387e-03 | Y0 0.105648 | 225.1s
-  Epoch 1100 | Loss 8.8575e-03 | Y0 0.106571 | 247.6s
-  Epoch 1200 | Loss 7.3789e-03 | Y0 0.106705 | 270.2s
-  Epoch 1300 | Loss 6.2379e-03 | Y0 0.106506 | 292.5s
-  Epoch 1400 | Loss 7.7964e-03 | Y0 0.106276 | 315.0s
-  Epoch 1500 | Loss 6.7288e-03 | Y0 0.105693 | 337.6s
-  Epoch 1600 | Loss 7.3562e-03 | Y0 0.106004 | 360.2s
-  Epoch 1700 | Loss 6.8428e-03 | Y0 0.106369 | 382.8s
-  Epoch 1800 | Loss 6.5503e-03 | Y0 0.106154 | 405.4s
-  Epoch 1900 | Loss 5.6935e-03 | Y0 0.106168 | 427.9s
-  Epoch 2000 | Loss 6.2248e-03 | Y0 0.105968 | 450.3s
-  Epoch 2100 | Loss 6.8680e-03 | Y0 0.106101 | 472.8s
-  Epoch 2200 | Loss 6.8504e-03 | Y0 0.105873 | 495.2s
-  Epoch 2300 | Loss 7.6846e-03 | Y0 0.105799 | 517.6s
-  Epoch 2400 | Loss 6.3818e-03 | Y0 0.106059 | 540.2s
-  Epoch 2500 | Loss 6.3924e-03 | Y0 0.106136 | 562.6s
-  Epoch 2600 | Loss 6.6362e-03 | Y0 0.106140 | 585.0s
-  Epoch 2700 | Loss 8.3727e-03 | Y0 0.106103 | 607.5s
-  Epoch 2800 | Loss 6.4673e-03 | Y0 0.106086 | 630.0s
-  Epoch 2900 | Loss 6.9807e-03 | Y0 0.106106 | 652.4s
-  Epoch 2999 | Loss 6.2447e-03 | Y0 0.106080 | 674.8s
-Training complete.  Y0 = 0.106080  (674.8s)
+  Epoch  100 | Loss 9.9614e-03 | Y0 0.073722 | 23.5s
+  Epoch  200 | Loss 8.0129e-03 | Y0 0.100644 | 46.8s
+  Epoch  300 | Loss 7.2643e-03 | Y0 0.104939 | 70.1s
+  Epoch  400 | Loss 7.2075e-03 | Y0 0.105879 | 93.5s
+  Epoch  500 | Loss 8.2560e-03 | Y0 0.106641 | 116.6s
+  Epoch  600 | Loss 9.1720e-03 | Y0 0.106236 | 139.8s
+  Epoch  700 | Loss 6.9126e-03 | Y0 0.106048 | 163.2s
+  Epoch  800 | Loss 6.7746e-03 | Y0 0.105791 | 186.2s
+  Epoch  900 | Loss 6.3494e-03 | Y0 0.106160 | 209.2s
+  Epoch 1000 | Loss 7.4387e-03 | Y0 0.105648 | 233.2s
+  Epoch 1100 | Loss 8.8575e-03 | Y0 0.106571 | 256.2s
+  Epoch 1200 | Loss 7.3789e-03 | Y0 0.106705 | 279.3s
+  Epoch 1300 | Loss 6.2379e-03 | Y0 0.106506 | 302.3s
+  Epoch 1400 | Loss 7.7964e-03 | Y0 0.106276 | 325.1s
+  Epoch 1500 | Loss 6.7288e-03 | Y0 0.105693 | 348.2s
+  Epoch 1600 | Loss 7.3562e-03 | Y0 0.106004 | 372.0s
+  Epoch 1700 | Loss 6.8428e-03 | Y0 0.106369 | 395.1s
+  Epoch 1800 | Loss 6.5503e-03 | Y0 0.106154 | 418.2s
+  Epoch 1900 | Loss 5.6935e-03 | Y0 0.106168 | 441.0s
+  Epoch 2000 | Loss 6.2248e-03 | Y0 0.105968 | 464.0s
+  Epoch 2100 | Loss 6.8680e-03 | Y0 0.106101 | 488.0s
+  Epoch 2200 | Loss 6.8504e-03 | Y0 0.105873 | 512.1s
+  Epoch 2300 | Loss 7.6846e-03 | Y0 0.105799 | 536.2s
+  Epoch 2400 | Loss 6.3818e-03 | Y0 0.106059 | 559.3s
+  Epoch 2500 | Loss 6.3924e-03 | Y0 0.106136 | 582.4s
+  Epoch 2600 | Loss 6.6362e-03 | Y0 0.106140 | 605.4s
+  Epoch 2700 | Loss 8.3727e-03 | Y0 0.106103 | 628.1s
+  Epoch 2800 | Loss 6.4673e-03 | Y0 0.106086 | 650.5s
+  Epoch 2900 | Loss 6.9807e-03 | Y0 0.106106 | 673.0s
+  Epoch 2999 | Loss 6.2447e-03 | Y0 0.106080 | 695.4s
+Training complete.  Y0 = 0.106080  (695.4s)
 
 ############################################################
 # d = 10
 ############################################################
-  MC batch 5: 250000/2000000 paths
-  MC batch 10: 500000/2000000 paths
-  MC batch 15: 750000/2000000 paths
-  MC batch 20: 1000000/2000000 paths
-  MC batch 25: 1250000/2000000 paths
-  MC batch 30: 1500000/2000000 paths
-  MC batch 35: 1750000/2000000 paths
-  MC batch 40: 2000000/2000000 paths
-  MC price = 0.090399 ± 0.000060  (3.7s, 1000000 paths)
-MC reference: 0.090399 ± 0.000118 (3.7s)
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.090404 ± 0.000027  (18.2s, 5000000 paths)
+MC reference: 0.090404 ± 0.000053 (18.2s)
 
 Training Triple-Net  d=10 ...
 === Triple-Net Basket (SVJDM)  d=10  N=100  M=1024 ===
   Epoch    0 | Loss 3.1417e-01 | Y0 0.001056 | 0.3s
-  Epoch  100 | Loss 6.9093e-03 | Y0 0.070562 | 22.8s
-  Epoch  200 | Loss 5.1033e-03 | Y0 0.088781 | 45.3s
-  Epoch  300 | Loss 4.7576e-03 | Y0 0.090471 | 67.8s
-  Epoch  400 | Loss 4.0653e-03 | Y0 0.089915 | 90.4s
-  Epoch  500 | Loss 3.9004e-03 | Y0 0.090579 | 112.7s
-  Epoch  600 | Loss 4.0808e-03 | Y0 0.090349 | 135.2s
-  Epoch  700 | Loss 3.5091e-03 | Y0 0.090392 | 157.7s
-  Epoch  800 | Loss 3.4340e-03 | Y0 0.090269 | 180.0s
-  Epoch  900 | Loss 3.1581e-03 | Y0 0.090348 | 202.4s
-  Epoch 1000 | Loss 3.1272e-03 | Y0 0.090334 | 225.0s
-  Epoch 1100 | Loss 3.4063e-03 | Y0 0.090352 | 247.4s
-  Epoch 1200 | Loss 3.0124e-03 | Y0 0.090536 | 269.9s
-  Epoch 1300 | Loss 2.9602e-03 | Y0 0.090062 | 292.5s
-  Epoch 1400 | Loss 3.2862e-03 | Y0 0.090808 | 314.9s
-  Epoch 1500 | Loss 2.5215e-03 | Y0 0.090206 | 337.4s
-  Epoch 1600 | Loss 2.5391e-03 | Y0 0.090392 | 359.9s
-  Epoch 1700 | Loss 2.5777e-03 | Y0 0.090360 | 382.3s
-  Epoch 1800 | Loss 2.6964e-03 | Y0 0.090524 | 404.8s
-  Epoch 1900 | Loss 2.9753e-03 | Y0 0.090270 | 427.4s
-  Epoch 2000 | Loss 2.4796e-03 | Y0 0.090318 | 449.8s
-  Epoch 2100 | Loss 2.3893e-03 | Y0 0.090413 | 472.5s
-  Epoch 2200 | Loss 2.3581e-03 | Y0 0.090491 | 495.1s
-  Epoch 2300 | Loss 2.7437e-03 | Y0 0.090066 | 517.6s
-  Epoch 2400 | Loss 2.5470e-03 | Y0 0.090483 | 540.1s
-  Epoch 2500 | Loss 2.3023e-03 | Y0 0.090343 | 562.5s
-  Epoch 2600 | Loss 2.3213e-03 | Y0 0.090385 | 585.0s
-  Epoch 2700 | Loss 2.4043e-03 | Y0 0.090363 | 607.6s
-  Epoch 2800 | Loss 2.6682e-03 | Y0 0.090409 | 630.0s
+  Epoch  100 | Loss 6.9093e-03 | Y0 0.070562 | 22.9s
+  Epoch  200 | Loss 5.1033e-03 | Y0 0.088781 | 45.4s
+  Epoch  300 | Loss 4.7576e-03 | Y0 0.090471 | 68.0s
+  Epoch  400 | Loss 4.0653e-03 | Y0 0.089915 | 90.8s
+  Epoch  500 | Loss 3.9004e-03 | Y0 0.090579 | 113.2s
+  Epoch  600 | Loss 4.0808e-03 | Y0 0.090349 | 135.8s
+  Epoch  700 | Loss 3.5091e-03 | Y0 0.090392 | 158.3s
+  Epoch  800 | Loss 3.4340e-03 | Y0 0.090269 | 180.6s
+  Epoch  900 | Loss 3.1581e-03 | Y0 0.090348 | 203.1s
+  Epoch 1000 | Loss 3.1272e-03 | Y0 0.090334 | 225.7s
+  Epoch 1100 | Loss 3.4063e-03 | Y0 0.090352 | 248.1s
+  Epoch 1200 | Loss 3.0124e-03 | Y0 0.090536 | 270.5s
+  Epoch 1300 | Loss 2.9602e-03 | Y0 0.090062 | 293.1s
+  Epoch 1400 | Loss 3.2862e-03 | Y0 0.090808 | 315.6s
+  Epoch 1500 | Loss 2.5215e-03 | Y0 0.090206 | 338.0s
+  Epoch 1600 | Loss 2.5391e-03 | Y0 0.090392 | 360.6s
+  Epoch 1700 | Loss 2.5777e-03 | Y0 0.090360 | 383.0s
+  Epoch 1800 | Loss 2.6964e-03 | Y0 0.090524 | 405.5s
+  Epoch 1900 | Loss 2.9753e-03 | Y0 0.090270 | 428.0s
+  Epoch 2000 | Loss 2.4796e-03 | Y0 0.090318 | 450.4s
+  Epoch 2100 | Loss 2.3893e-03 | Y0 0.090413 | 472.9s
+  Epoch 2200 | Loss 2.3581e-03 | Y0 0.090491 | 495.3s
+  Epoch 2300 | Loss 2.7437e-03 | Y0 0.090066 | 517.7s
+  Epoch 2400 | Loss 2.5470e-03 | Y0 0.090483 | 540.3s
+  Epoch 2500 | Loss 2.3023e-03 | Y0 0.090343 | 562.7s
+  Epoch 2600 | Loss 2.3213e-03 | Y0 0.090385 | 585.2s
+  Epoch 2700 | Loss 2.4043e-03 | Y0 0.090363 | 607.7s
+  Epoch 2800 | Loss 2.6682e-03 | Y0 0.090409 | 630.1s
   Epoch 2900 | Loss 2.2956e-03 | Y0 0.090427 | 652.5s
-  Epoch 2999 | Loss 2.3513e-03 | Y0 0.090381 | 674.9s
-Training complete.  Y0 = 0.090381  (674.9s)
+  Epoch 2999 | Loss 2.3513e-03 | Y0 0.090381 | 674.8s
+Training complete.  Y0 = 0.090381  (674.8s)
 
 ############################################################
 # d = 50
 ############################################################
-  MC batch 5: 250000/500000 paths
-  MC batch 10: 500000/500000 paths
-  MC price = 0.083566 ± 0.000107  (0.9s, 250000 paths)
-MC reference: 0.083566 ± 0.000210 (0.9s)
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.083549 ± 0.000024  (18.2s, 5000000 paths)
+MC reference: 0.083549 ± 0.000047 (18.2s)
 
 Training Triple-Net  d=50 ...
 === Triple-Net Basket (SVJDM)  d=50  N=100  M=1024 ===
   Epoch    0 | Loss 9.0231e-01 | Y0 0.001056 | 0.3s
-  Epoch  100 | Loss 1.4365e-02 | Y0 0.065521 | 23.0s
-  Epoch  200 | Loss 1.0341e-02 | Y0 0.081355 | 45.8s
-  Epoch  300 | Loss 9.3048e-03 | Y0 0.083405 | 68.5s
-  Epoch  400 | Loss 7.4621e-03 | Y0 0.083488 | 91.3s
-  Epoch  500 | Loss 6.4794e-03 | Y0 0.083656 | 114.0s
-  Epoch  600 | Loss 5.7858e-03 | Y0 0.084064 | 136.5s
-  Epoch  700 | Loss 5.2874e-03 | Y0 0.084085 | 159.2s
-  Epoch  800 | Loss 4.5471e-03 | Y0 0.082985 | 181.8s
-  Epoch  900 | Loss 4.3368e-03 | Y0 0.083492 | 204.5s
-  Epoch 1000 | Loss 3.8960e-03 | Y0 0.083552 | 227.2s
-  Epoch 1100 | Loss 3.5586e-03 | Y0 0.083871 | 249.8s
-  Epoch 1200 | Loss 3.5884e-03 | Y0 0.083419 | 272.5s
-  Epoch 1300 | Loss 3.3249e-03 | Y0 0.083189 | 295.2s
-  Epoch 1400 | Loss 3.0323e-03 | Y0 0.083843 | 317.7s
-  Epoch 1500 | Loss 3.0584e-03 | Y0 0.084067 | 340.4s
-  Epoch 1600 | Loss 2.1684e-03 | Y0 0.083801 | 363.1s
-  Epoch 1700 | Loss 1.9354e-03 | Y0 0.083676 | 385.7s
-  Epoch 1800 | Loss 1.9304e-03 | Y0 0.083522 | 408.3s
-  Epoch 1900 | Loss 1.9788e-03 | Y0 0.083616 | 430.9s
-  Epoch 2000 | Loss 2.0704e-03 | Y0 0.083588 | 453.5s
-  Epoch 2100 | Loss 1.9109e-03 | Y0 0.083758 | 476.0s
-  Epoch 2200 | Loss 1.8520e-03 | Y0 0.083464 | 498.7s
-  Epoch 2300 | Loss 1.8354e-03 | Y0 0.083555 | 521.3s
-  Epoch 2400 | Loss 1.8856e-03 | Y0 0.083280 | 543.9s
-  Epoch 2500 | Loss 2.0118e-03 | Y0 0.083593 | 566.6s
-  Epoch 2600 | Loss 2.0563e-03 | Y0 0.083598 | 589.2s
-  Epoch 2700 | Loss 1.7572e-03 | Y0 0.083584 | 611.9s
-  Epoch 2800 | Loss 1.7685e-03 | Y0 0.083587 | 634.7s
-  Epoch 2900 | Loss 1.6297e-03 | Y0 0.083546 | 657.3s
+  Epoch  100 | Loss 1.4365e-02 | Y0 0.065521 | 22.8s
+  Epoch  200 | Loss 1.0341e-02 | Y0 0.081355 | 45.4s
+  Epoch  300 | Loss 9.3048e-03 | Y0 0.083405 | 68.0s
+  Epoch  400 | Loss 7.4621e-03 | Y0 0.083488 | 90.7s
+  Epoch  500 | Loss 6.4794e-03 | Y0 0.083656 | 113.3s
+  Epoch  600 | Loss 5.7858e-03 | Y0 0.084064 | 135.8s
+  Epoch  700 | Loss 5.2874e-03 | Y0 0.084085 | 158.4s
+  Epoch  800 | Loss 4.5471e-03 | Y0 0.082985 | 180.9s
+  Epoch  900 | Loss 4.3368e-03 | Y0 0.083492 | 203.5s
+  Epoch 1000 | Loss 3.8960e-03 | Y0 0.083552 | 226.1s
+  Epoch 1100 | Loss 3.5586e-03 | Y0 0.083871 | 248.8s
+  Epoch 1200 | Loss 3.5884e-03 | Y0 0.083419 | 271.4s
+  Epoch 1300 | Loss 3.3249e-03 | Y0 0.083189 | 294.1s
+  Epoch 1400 | Loss 3.0323e-03 | Y0 0.083843 | 316.8s
+  Epoch 1500 | Loss 3.0584e-03 | Y0 0.084067 | 339.4s
+  Epoch 1600 | Loss 2.1684e-03 | Y0 0.083801 | 362.0s
+  Epoch 1700 | Loss 1.9354e-03 | Y0 0.083676 | 384.6s
+  Epoch 1800 | Loss 1.9304e-03 | Y0 0.083522 | 407.3s
+  Epoch 1900 | Loss 1.9788e-03 | Y0 0.083616 | 430.2s
+  Epoch 2000 | Loss 2.0704e-03 | Y0 0.083588 | 452.8s
+  Epoch 2100 | Loss 1.9109e-03 | Y0 0.083758 | 475.4s
+  Epoch 2200 | Loss 1.8520e-03 | Y0 0.083464 | 498.2s
+  Epoch 2300 | Loss 1.8354e-03 | Y0 0.083555 | 520.8s
+  Epoch 2400 | Loss 1.8856e-03 | Y0 0.083280 | 543.5s
+  Epoch 2500 | Loss 2.0118e-03 | Y0 0.083593 | 566.3s
+  Epoch 2600 | Loss 2.0563e-03 | Y0 0.083598 | 589.0s
+  Epoch 2700 | Loss 1.7572e-03 | Y0 0.083584 | 611.7s
+  Epoch 2800 | Loss 1.7685e-03 | Y0 0.083587 | 634.4s
+  Epoch 2900 | Loss 1.6297e-03 | Y0 0.083546 | 657.2s
   Epoch 2999 | Loss 1.9516e-03 | Y0 0.083598 | 679.8s
 Training complete.  Y0 = 0.083598  (679.8s)
 
 ############################################################
 # d = 100
 ############################################################
-  MC price = 0.082764 ± 0.000168  (0.4s, 100000 paths)
-MC reference: 0.082764 ± 0.000328 (0.4s)
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.082576 ± 0.000024  (18.4s, 5000000 paths)
+MC reference: 0.082576 ± 0.000046 (18.4s)
 
 Training Triple-Net  d=100 ...
 === Triple-Net Basket (SVJDM)  d=100  N=100  M=1024 ===
   Epoch    0 | Loss 1.5152e+00 | Y0 0.001056 | 0.3s
-  Epoch  100 | Loss 3.0116e-02 | Y0 0.068401 | 23.0s
-  Epoch  200 | Loss 1.3525e-02 | Y0 0.082364 | 45.8s
+  Epoch  100 | Loss 3.0116e-02 | Y0 0.068401 | 22.9s
+  Epoch  200 | Loss 1.3525e-02 | Y0 0.082364 | 45.7s
   Epoch  300 | Loss 1.3104e-02 | Y0 0.082709 | 68.4s
-  Epoch  400 | Loss 1.1411e-02 | Y0 0.082814 | 91.0s
-  Epoch  500 | Loss 8.9310e-03 | Y0 0.081689 | 113.7s
-  Epoch  600 | Loss 8.1645e-03 | Y0 0.083364 | 136.3s
-  Epoch  700 | Loss 6.9797e-03 | Y0 0.082700 | 159.0s
-  Epoch  800 | Loss 5.9053e-03 | Y0 0.082177 | 181.8s
-  Epoch  900 | Loss 5.9040e-03 | Y0 0.082894 | 204.4s
-  Epoch 1000 | Loss 5.5427e-03 | Y0 0.083304 | 227.1s
-  Epoch 1100 | Loss 4.5460e-03 | Y0 0.082459 | 249.9s
-  Epoch 1200 | Loss 5.0658e-03 | Y0 0.082452 | 272.8s
-  Epoch 1300 | Loss 4.7888e-03 | Y0 0.082251 | 295.7s
-  Epoch 1400 | Loss 4.3144e-03 | Y0 0.083150 | 318.4s
+  Epoch  400 | Loss 1.1411e-02 | Y0 0.082814 | 91.1s
+  Epoch  500 | Loss 8.9310e-03 | Y0 0.081689 | 114.0s
+  Epoch  600 | Loss 8.1645e-03 | Y0 0.083364 | 136.7s
+  Epoch  700 | Loss 6.9797e-03 | Y0 0.082700 | 159.3s
+  Epoch  800 | Loss 5.9053e-03 | Y0 0.082177 | 182.1s
+  Epoch  900 | Loss 5.9040e-03 | Y0 0.082894 | 204.8s
+  Epoch 1000 | Loss 5.5427e-03 | Y0 0.083304 | 227.4s
+  Epoch 1100 | Loss 4.5460e-03 | Y0 0.082459 | 250.2s
+  Epoch 1200 | Loss 5.0658e-03 | Y0 0.082452 | 272.9s
+  Epoch 1300 | Loss 4.7888e-03 | Y0 0.082251 | 295.8s
+  Epoch 1400 | Loss 4.3144e-03 | Y0 0.083150 | 318.5s
   Epoch 1500 | Loss 4.2976e-03 | Y0 0.082802 | 341.2s
   Epoch 1600 | Loss 2.3147e-03 | Y0 0.082616 | 364.0s
-  Epoch 1700 | Loss 2.1210e-03 | Y0 0.082567 | 386.7s
-  Epoch 1800 | Loss 1.9969e-03 | Y0 0.082603 | 409.3s
-  Epoch 1900 | Loss 1.9869e-03 | Y0 0.082667 | 432.1s
-  Epoch 2000 | Loss 2.2974e-03 | Y0 0.082631 | 454.7s
-  Epoch 2100 | Loss 2.1582e-03 | Y0 0.082464 | 477.3s
-  Epoch 2200 | Loss 2.0640e-03 | Y0 0.082529 | 500.0s
-  Epoch 2300 | Loss 1.7658e-03 | Y0 0.082658 | 522.6s
-  Epoch 2400 | Loss 1.9754e-03 | Y0 0.082423 | 545.2s
-  Epoch 2500 | Loss 2.0178e-03 | Y0 0.082637 | 567.9s
-  Epoch 2600 | Loss 1.8389e-03 | Y0 0.082650 | 590.6s
-  Epoch 2700 | Loss 1.9434e-03 | Y0 0.082631 | 613.4s
-  Epoch 2800 | Loss 2.0447e-03 | Y0 0.082584 | 636.2s
-  Epoch 2900 | Loss 1.9712e-03 | Y0 0.082612 | 658.8s
-  Epoch 2999 | Loss 1.8858e-03 | Y0 0.082651 | 681.3s
-Training complete.  Y0 = 0.082651  (681.3s)
+  Epoch 1700 | Loss 2.1210e-03 | Y0 0.082567 | 388.0s
+  Epoch 1800 | Loss 1.9969e-03 | Y0 0.082603 | 410.8s
+  Epoch 1900 | Loss 1.9869e-03 | Y0 0.082667 | 433.8s
+  Epoch 2000 | Loss 2.2974e-03 | Y0 0.082631 | 456.4s
+  Epoch 2100 | Loss 2.1582e-03 | Y0 0.082464 | 479.1s
+  Epoch 2200 | Loss 2.0640e-03 | Y0 0.082529 | 501.9s
+  Epoch 2300 | Loss 1.7658e-03 | Y0 0.082658 | 524.6s
+  Epoch 2400 | Loss 1.9754e-03 | Y0 0.082423 | 547.5s
+  Epoch 2500 | Loss 2.0178e-03 | Y0 0.082637 | 570.5s
+  Epoch 2600 | Loss 1.8389e-03 | Y0 0.082650 | 593.4s
+  Epoch 2700 | Loss 1.9434e-03 | Y0 0.082631 | 616.2s
+  Epoch 2800 | Loss 2.0447e-03 | Y0 0.082584 | 639.0s
+  Epoch 2900 | Loss 1.9712e-03 | Y0 0.082612 | 661.8s
+  Epoch 2999 | Loss 1.8858e-03 | Y0 0.082651 | 684.3s
+Training complete.  Y0 = 0.082651  (684.3s)
 
 ############################################################
 # d = 200
 ############################################################
-  MC price = 0.082324 ± 0.000235  (0.5s, 50000 paths)
-MC reference: 0.082324 ± 0.000460 (0.5s)
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.082110 ± 0.000024  (24.5s, 5000000 paths)
+MC reference: 0.082110 ± 0.000046 (24.5s)
 
 Training Triple-Net  d=200 ...
 === Triple-Net Basket (SVJDM)  d=200  N=100  M=1024 ===
   Epoch    0 | Loss 2.2628e+00 | Y0 0.001056 | 0.3s
-  Epoch  100 | Loss 1.0823e-01 | Y0 0.063144 | 22.9s
-  Epoch  200 | Loss 2.1523e-02 | Y0 0.081453 | 45.7s
-  Epoch  300 | Loss 1.4757e-02 | Y0 0.081928 | 68.4s
-  Epoch  400 | Loss 1.4110e-02 | Y0 0.082394 | 91.1s
-  Epoch  500 | Loss 1.3458e-02 | Y0 0.081377 | 113.9s
-  Epoch  600 | Loss 9.7207e-03 | Y0 0.082043 | 136.4s
-  Epoch  700 | Loss 9.5847e-03 | Y0 0.081674 | 159.0s
-  Epoch  800 | Loss 8.6438e-03 | Y0 0.081941 | 181.6s
-  Epoch  900 | Loss 8.5111e-03 | Y0 0.082090 | 204.2s
-  Epoch 1000 | Loss 8.1598e-03 | Y0 0.081704 | 226.9s
-  Epoch 1100 | Loss 6.7135e-03 | Y0 0.081705 | 249.6s
-  Epoch 1200 | Loss 1.0090e-02 | Y0 0.082495 | 272.3s
-  Epoch 1300 | Loss 3.3691e+02 | Y0 0.063301 | 294.8s
-  Epoch 1400 | Loss 1.8717e-01 | Y0 0.079512 | 317.6s
-  Epoch 1500 | Loss 9.0531e-02 | Y0 0.081614 | 340.2s
-  Epoch 1600 | Loss 7.7468e-02 | Y0 0.081780 | 362.8s
-  Epoch 1700 | Loss 7.3809e-02 | Y0 0.081851 | 385.6s
-  Epoch 1800 | Loss 7.0757e-02 | Y0 0.081988 | 408.1s
-  Epoch 1900 | Loss 6.8357e-02 | Y0 0.081918 | 430.7s
-  Epoch 2000 | Loss 5.8074e-02 | Y0 0.081798 | 453.5s
-  Epoch 2100 | Loss 6.0887e-02 | Y0 0.081507 | 476.1s
-  Epoch 2200 | Loss 5.4296e-02 | Y0 0.081833 | 498.6s
-  Epoch 2300 | Loss 5.1540e-02 | Y0 0.082179 | 521.5s
-  Epoch 2400 | Loss 4.5806e-02 | Y0 0.082047 | 544.1s
-  Epoch 2500 | Loss 4.2411e-02 | Y0 0.081943 | 566.9s
-  Epoch 2600 | Loss 3.8335e-02 | Y0 0.081961 | 589.6s
-  Epoch 2700 | Loss 4.1885e-02 | Y0 0.081951 | 612.2s
-  Epoch 2800 | Loss 4.0109e-02 | Y0 0.081968 | 635.0s
-  Epoch 2900 | Loss 4.1225e-02 | Y0 0.081981 | 657.6s
-  Epoch 2999 | Loss 3.7273e-02 | Y0 0.081994 | 680.1s
-Training complete.  Y0 = 0.081994  (680.1s)
+  Epoch  100 | Loss 1.0823e-01 | Y0 0.063144 | 23.1s
+  Epoch  200 | Loss 2.1523e-02 | Y0 0.081453 | 45.9s
+  Epoch  300 | Loss 1.4757e-02 | Y0 0.081928 | 68.7s
+  Epoch  400 | Loss 1.4110e-02 | Y0 0.082394 | 91.4s
+  Epoch  500 | Loss 1.3458e-02 | Y0 0.081377 | 114.3s
+  Epoch  600 | Loss 9.7207e-03 | Y0 0.082043 | 137.2s
+  Epoch  700 | Loss 9.5847e-03 | Y0 0.081674 | 160.0s
+  Epoch  800 | Loss 8.6438e-03 | Y0 0.081941 | 182.8s
+  Epoch  900 | Loss 8.5111e-03 | Y0 0.082090 | 205.5s
+  Epoch 1000 | Loss 8.1598e-03 | Y0 0.081704 | 228.3s
+  Epoch 1100 | Loss 6.7135e-03 | Y0 0.081705 | 251.3s
+  Epoch 1200 | Loss 1.0090e-02 | Y0 0.082495 | 274.2s
+  Epoch 1300 | Loss 3.3691e+02 | Y0 0.063301 | 297.1s
+  Epoch 1400 | Loss 1.8717e-01 | Y0 0.079512 | 320.0s
+  Epoch 1500 | Loss 9.0531e-02 | Y0 0.081614 | 342.8s
+  Epoch 1600 | Loss 7.7468e-02 | Y0 0.081780 | 365.6s
+  Epoch 1700 | Loss 7.3809e-02 | Y0 0.081851 | 388.4s
+  Epoch 1800 | Loss 7.0757e-02 | Y0 0.081988 | 411.1s
+  Epoch 1900 | Loss 6.8357e-02 | Y0 0.081918 | 433.9s
+  Epoch 2000 | Loss 5.8074e-02 | Y0 0.081798 | 456.7s
+  Epoch 2100 | Loss 6.0887e-02 | Y0 0.081507 | 479.5s
+  Epoch 2200 | Loss 5.4296e-02 | Y0 0.081833 | 502.2s
+  Epoch 2300 | Loss 5.1540e-02 | Y0 0.082179 | 525.0s
+  Epoch 2400 | Loss 4.5806e-02 | Y0 0.082047 | 547.7s
+  Epoch 2500 | Loss 4.2411e-02 | Y0 0.081943 | 570.6s
+  Epoch 2600 | Loss 3.8335e-02 | Y0 0.081961 | 593.4s
+  Epoch 2700 | Loss 4.1885e-02 | Y0 0.081951 | 616.2s
+  Epoch 2800 | Loss 4.0109e-02 | Y0 0.081968 | 639.1s
+  Epoch 2900 | Loss 4.1225e-02 | Y0 0.081981 | 661.9s
+  Epoch 2999 | Loss 3.7273e-02 | Y0 0.081994 | 684.4s
+Training complete.  Y0 = 0.081994  (684.4s)
 
 ====================================================================================================
 Dimension (d)           MC Benchmark (95% CI)   Our Model (Y0)  MC Time (s)  Our Time (per 1k ep, s)
 ----------------------------------------------------------------------------------------------------
-1 (COS exact)                          0.1371           0.1371            -                    223.1
-3 (10M paths)               0.1061 +/- 0.0001           0.1061         18.2                    224.9
-10 (2M paths)               0.0904 +/- 0.0001           0.0904          3.7                    225.0
-50 (500K paths)             0.0836 +/- 0.0002           0.0836          0.9                    226.6
-100 (200K paths)            0.0828 +/- 0.0003           0.0827          0.4                    227.1
-200 (100K paths)            0.0823 +/- 0.0005           0.0820          0.5                    226.7
+1 (COS exact)                          0.1371           0.1371            -                    226.5
+3 (10M paths)               0.1061 +/- 0.0001           0.1061         18.3                    231.8
+10 (10M paths)              0.0904 +/- 0.0001           0.0904         18.2                    224.9
+50 (10M paths)              0.0835 +/- 0.0000           0.0836         18.2                    226.6
+100 (10M paths)             0.0826 +/- 0.0000           0.0827         18.4                    228.1
+200 (10M paths)             0.0821 +/- 0.0000           0.0820         24.5                    228.1
 ====================================================================================================
 Saved: figs/phase2_time_vs_dim.png
 Saved: figs/phase2_relerr_vs_dim.png
