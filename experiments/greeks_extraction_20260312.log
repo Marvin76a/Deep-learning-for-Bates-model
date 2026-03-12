@@ -1,0 +1,143 @@
+Logging to /home/admin2/svjdm/experiments/greeks_extraction_20260312.log
+
+############################################################
+# Greeks Extraction — d = 50
+############################################################
+
+--- Training Triple-Net ---
+=== Triple-Net Basket (SVJDM)  d=50  N=100  M=1024 ===
+  Epoch    0 | Loss 9.0231e-01 | Y0 0.001000 | 0.5s
+  Epoch  100 | Loss 1.5006e-02 | Y0 0.070330 | 21.8s
+  Epoch  200 | Loss 7.9854e-03 | Y0 0.082788 | 43.0s
+  Epoch  300 | Loss 7.7024e-03 | Y0 0.084025 | 64.2s
+  Epoch  400 | Loss 6.1592e-03 | Y0 0.083752 | 85.3s
+  Epoch  500 | Loss 5.8660e-03 | Y0 0.083381 | 106.5s
+  Epoch  600 | Loss 5.4950e-03 | Y0 0.083452 | 127.7s
+  Epoch  700 | Loss 4.9133e-03 | Y0 0.084082 | 148.8s
+  Epoch  800 | Loss 4.4645e-03 | Y0 0.082805 | 169.7s
+  Epoch  900 | Loss 4.2075e-03 | Y0 0.083650 | 190.7s
+  Epoch 1000 | Loss 3.7190e-03 | Y0 0.083658 | 211.5s
+  Epoch 1100 | Loss 3.5882e-03 | Y0 0.083669 | 232.5s
+  Epoch 1200 | Loss 3.3776e-03 | Y0 0.084077 | 253.7s
+  Epoch 1300 | Loss 3.2826e-03 | Y0 0.083059 | 274.9s
+  Epoch 1400 | Loss 2.8468e-03 | Y0 0.084260 | 296.0s
+  Epoch 1500 | Loss 2.8857e-03 | Y0 0.084190 | 317.3s
+  Epoch 1600 | Loss 2.0401e-03 | Y0 0.083846 | 338.4s
+  Epoch 1700 | Loss 1.8570e-03 | Y0 0.083752 | 359.6s
+  Epoch 1800 | Loss 1.6392e-03 | Y0 0.083590 | 380.8s
+  Epoch 1900 | Loss 1.7927e-03 | Y0 0.083616 | 401.9s
+  Epoch 2000 | Loss 1.9393e-03 | Y0 0.083512 | 423.1s
+  Epoch 2100 | Loss 1.8497e-03 | Y0 0.083605 | 444.4s
+  Epoch 2200 | Loss 1.7598e-03 | Y0 0.083428 | 465.5s
+  Epoch 2300 | Loss 1.7714e-03 | Y0 0.083515 | 486.7s
+  Epoch 2400 | Loss 1.6956e-03 | Y0 0.083200 | 508.0s
+  Epoch 2500 | Loss 1.8784e-03 | Y0 0.083529 | 529.1s
+  Epoch 2600 | Loss 1.9217e-03 | Y0 0.083548 | 550.0s
+  Epoch 2700 | Loss 1.7129e-03 | Y0 0.083526 | 571.0s
+  Epoch 2800 | Loss 1.5990e-03 | Y0 0.083537 | 591.9s
+  Epoch 2900 | Loss 1.5622e-03 | Y0 0.083519 | 612.9s
+  Epoch 2999 | Loss 1.7990e-03 | Y0 0.083590 | 633.6s
+Training complete.  Y0 = 0.083590  (633.6s)
+
+--- MC Finite-Difference Greeks (CRN) ---
+  MC Greeks batch 5: 125000/10000000
+  MC Greeks batch 10: 250000/10000000
+  MC Greeks batch 15: 375000/10000000
+  MC Greeks batch 20: 500000/10000000
+  MC Greeks batch 25: 625000/10000000
+  MC Greeks batch 30: 750000/10000000
+  MC Greeks batch 35: 875000/10000000
+  MC Greeks batch 40: 1000000/10000000
+  MC Greeks batch 45: 1125000/10000000
+  MC Greeks batch 50: 1250000/10000000
+  MC Greeks batch 55: 1375000/10000000
+  MC Greeks batch 60: 1500000/10000000
+  MC Greeks batch 65: 1625000/10000000
+  MC Greeks batch 70: 1750000/10000000
+  MC Greeks batch 75: 1875000/10000000
+  MC Greeks batch 80: 2000000/10000000
+  MC Greeks batch 85: 2125000/10000000
+  MC Greeks batch 90: 2250000/10000000
+  MC Greeks batch 95: 2375000/10000000
+  MC Greeks batch 100: 2500000/10000000
+  MC Greeks batch 105: 2625000/10000000
+  MC Greeks batch 110: 2750000/10000000
+  MC Greeks batch 115: 2875000/10000000
+  MC Greeks batch 120: 3000000/10000000
+  MC Greeks batch 125: 3125000/10000000
+  MC Greeks batch 130: 3250000/10000000
+  MC Greeks batch 135: 3375000/10000000
+  MC Greeks batch 140: 3500000/10000000
+  MC Greeks batch 145: 3625000/10000000
+  MC Greeks batch 150: 3750000/10000000
+  MC Greeks batch 155: 3875000/10000000
+  MC Greeks batch 160: 4000000/10000000
+  MC Greeks batch 165: 4125000/10000000
+  MC Greeks batch 170: 4250000/10000000
+  MC Greeks batch 175: 4375000/10000000
+  MC Greeks batch 180: 4500000/10000000
+  MC Greeks batch 185: 4625000/10000000
+  MC Greeks batch 190: 4750000/10000000
+  MC Greeks batch 195: 4875000/10000000
+  MC Greeks batch 200: 5000000/10000000
+  MC Greeks batch 205: 5125000/10000000
+  MC Greeks batch 210: 5250000/10000000
+  MC Greeks batch 215: 5375000/10000000
+  MC Greeks batch 220: 5500000/10000000
+  MC Greeks batch 225: 5625000/10000000
+  MC Greeks batch 230: 5750000/10000000
+  MC Greeks batch 235: 5875000/10000000
+  MC Greeks batch 240: 6000000/10000000
+  MC Greeks batch 245: 6125000/10000000
+  MC Greeks batch 250: 6250000/10000000
+  MC Greeks batch 255: 6375000/10000000
+  MC Greeks batch 260: 6500000/10000000
+  MC Greeks batch 265: 6625000/10000000
+  MC Greeks batch 270: 6750000/10000000
+  MC Greeks batch 275: 6875000/10000000
+  MC Greeks batch 280: 7000000/10000000
+  MC Greeks batch 285: 7125000/10000000
+  MC Greeks batch 290: 7250000/10000000
+  MC Greeks batch 295: 7375000/10000000
+  MC Greeks batch 300: 7500000/10000000
+  MC Greeks batch 305: 7625000/10000000
+  MC Greeks batch 310: 7750000/10000000
+  MC Greeks batch 315: 7875000/10000000
+  MC Greeks batch 320: 8000000/10000000
+  MC Greeks batch 325: 8125000/10000000
+  MC Greeks batch 330: 8250000/10000000
+  MC Greeks batch 335: 8375000/10000000
+  MC Greeks batch 340: 8500000/10000000
+  MC Greeks batch 345: 8625000/10000000
+  MC Greeks batch 350: 8750000/10000000
+  MC Greeks batch 355: 8875000/10000000
+  MC Greeks batch 360: 9000000/10000000
+  MC Greeks batch 365: 9125000/10000000
+  MC Greeks batch 370: 9250000/10000000
+  MC Greeks batch 375: 9375000/10000000
+  MC Greeks batch 380: 9500000/10000000
+  MC Greeks batch 385: 9625000/10000000
+  MC Greeks batch 390: 9750000/10000000
+  MC Greeks batch 395: 9875000/10000000
+  MC Greeks batch 400: 10000000/10000000
+  MC Greeks computed in 56.1s (10000000 paths)
+  Pure Delta (Σ): 0.141983  |  Spillover: -0.016228
+  Projected Delta (Σ Z_S): 0.125755
+  Pure Vega: 0.010191  |  L_vv: 0.4515
+  Projected Vega (Z_v): 0.004601
+
+==================================================================================
+  Greeks Extraction at t=0  (d=50 Basket Option)
+  MC results projected to NN's orthogonal basis via Cholesky
+==================================================================================
+Risk Parameter                               MC (Projected)       Our Model (NN)
+----------------------------------------------------------------------------------
+Delta Exposure (Σ Z_S)               0.125755 ± 0.000032             0.124252
+Vega Exposure  (Z_v)                 0.004601 ± 0.000004             0.004424
+----------------------------------------------------------------------------------
+MC Pure Delta (Σ, pre-proj.)         0.141983
+MC Pure Vega  (pre-proj.)            0.010191
+MC elapsed                               56.1 s
+==================================================================================
+
+Greeks extraction complete.

@@ -1,0 +1,516 @@
+Logging to /home/admin2/svjdm/experiments/phase2_scaling_20260312.log
+
+############################################################
+# d = 1
+############################################################
+COS exact price: 0.13705818  (0.0024s)
+
+Training Triple-Net  d=1 ...
+=== Triple-Net Basket (SVJDM)  d=1  N=100  M=1024 ===
+  Epoch    0 | Loss 1.3639e-01 | Y0 0.001000 | 0.5s
+  Epoch  100 | Loss 2.7144e-02 | Y0 0.084711 | 22.0s
+  Epoch  200 | Loss 2.3133e-02 | Y0 0.124802 | 43.4s
+  Epoch  300 | Loss 2.0872e-02 | Y0 0.135684 | 65.0s
+  Epoch  400 | Loss 1.8965e-02 | Y0 0.136231 | 86.4s
+  Epoch  500 | Loss 2.2064e-02 | Y0 0.137424 | 107.8s
+  Epoch  600 | Loss 2.5453e-02 | Y0 0.136824 | 129.3s
+  Epoch  700 | Loss 2.2912e-02 | Y0 0.136708 | 150.8s
+  Epoch  800 | Loss 2.2764e-02 | Y0 0.137017 | 172.1s
+  Epoch  900 | Loss 2.7949e-02 | Y0 0.137664 | 193.5s
+  Epoch 1000 | Loss 2.0680e-02 | Y0 0.137480 | 214.8s
+  Epoch 1100 | Loss 1.8795e-02 | Y0 0.137912 | 236.2s
+  Epoch 1200 | Loss 2.7078e-02 | Y0 0.137796 | 257.6s
+  Epoch 1300 | Loss 2.6172e-02 | Y0 0.136840 | 279.1s
+  Epoch 1400 | Loss 1.9516e-02 | Y0 0.137349 | 300.3s
+  Epoch 1500 | Loss 2.0038e-02 | Y0 0.137390 | 321.9s
+  Epoch 1600 | Loss 1.7962e-02 | Y0 0.137329 | 343.2s
+  Epoch 1700 | Loss 2.2532e-02 | Y0 0.137048 | 364.5s
+  Epoch 1800 | Loss 2.1279e-02 | Y0 0.137489 | 386.0s
+  Epoch 1900 | Loss 1.8870e-02 | Y0 0.137262 | 407.3s
+  Epoch 2000 | Loss 2.0105e-02 | Y0 0.137343 | 428.6s
+  Epoch 2100 | Loss 2.0915e-02 | Y0 0.136825 | 450.1s
+  Epoch 2200 | Loss 1.6932e-02 | Y0 0.136657 | 471.4s
+  Epoch 2300 | Loss 1.8056e-02 | Y0 0.136908 | 492.7s
+  Epoch 2400 | Loss 1.9188e-02 | Y0 0.137364 | 514.0s
+  Epoch 2500 | Loss 1.9242e-02 | Y0 0.137375 | 535.2s
+  Epoch 2600 | Loss 2.0817e-02 | Y0 0.137355 | 556.3s
+  Epoch 2700 | Loss 1.5147e-02 | Y0 0.137238 | 577.6s
+  Epoch 2800 | Loss 1.8897e-02 | Y0 0.137200 | 598.8s
+  Epoch 2900 | Loss 1.7902e-02 | Y0 0.137187 | 620.1s
+  Epoch 2999 | Loss 2.2324e-02 | Y0 0.137127 | 641.2s
+Training complete.  Y0 = 0.137127  (641.2s)
+
+############################################################
+# d = 3
+############################################################
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.106080 ± 0.000037  (18.3s, 5000000 paths)
+MC reference: 0.106080 ± 0.000072 (18.3s)
+
+Timing MC Greeks FD  d=3 ...
+  MC Greeks FD batch 5: 125000/1000000
+  MC Greeks FD batch 10: 250000/1000000
+  MC Greeks FD batch 15: 375000/1000000
+  MC Greeks FD batch 20: 500000/1000000
+  MC Greeks FD batch 25: 625000/1000000
+  MC Greeks FD batch 30: 750000/1000000
+  MC Greeks FD batch 35: 875000/1000000
+  MC Greeks FD batch 40: 1000000/1000000
+  MC Greeks FD (d=3, 2d=6 passes) completed in 7.8s
+
+Training Triple-Net  d=3 ...
+=== Triple-Net Basket (SVJDM)  d=3  N=100  M=1024 ===
+  Epoch    0 | Loss 1.6133e-01 | Y0 0.001000 | 0.2s
+  Epoch  100 | Loss 9.2998e-03 | Y0 0.078644 | 21.5s
+  Epoch  200 | Loss 7.9276e-03 | Y0 0.102823 | 42.7s
+  Epoch  300 | Loss 7.0927e-03 | Y0 0.105253 | 63.9s
+  Epoch  400 | Loss 7.1453e-03 | Y0 0.105757 | 85.2s
+  Epoch  500 | Loss 8.3131e-03 | Y0 0.106437 | 106.4s
+  Epoch  600 | Loss 9.2988e-03 | Y0 0.106081 | 127.6s
+  Epoch  700 | Loss 6.9194e-03 | Y0 0.105994 | 149.1s
+  Epoch  800 | Loss 7.0061e-03 | Y0 0.105777 | 170.4s
+  Epoch  900 | Loss 6.6867e-03 | Y0 0.106054 | 191.7s
+  Epoch 1000 | Loss 7.9120e-03 | Y0 0.105782 | 213.0s
+  Epoch 1100 | Loss 8.7978e-03 | Y0 0.106621 | 234.2s
+  Epoch 1200 | Loss 7.4971e-03 | Y0 0.106631 | 255.5s
+  Epoch 1300 | Loss 6.4917e-03 | Y0 0.106968 | 276.8s
+  Epoch 1400 | Loss 7.9617e-03 | Y0 0.106253 | 297.9s
+  Epoch 1500 | Loss 6.8691e-03 | Y0 0.105847 | 319.2s
+  Epoch 1600 | Loss 7.3707e-03 | Y0 0.106082 | 340.3s
+  Epoch 1700 | Loss 6.8692e-03 | Y0 0.106431 | 361.5s
+  Epoch 1800 | Loss 6.5457e-03 | Y0 0.106151 | 383.0s
+  Epoch 1900 | Loss 5.7156e-03 | Y0 0.106131 | 404.5s
+  Epoch 2000 | Loss 6.2053e-03 | Y0 0.105957 | 425.9s
+  Epoch 2100 | Loss 6.8671e-03 | Y0 0.106107 | 447.6s
+  Epoch 2200 | Loss 6.8590e-03 | Y0 0.105868 | 469.0s
+  Epoch 2300 | Loss 7.6787e-03 | Y0 0.105779 | 490.4s
+  Epoch 2400 | Loss 6.3890e-03 | Y0 0.106050 | 511.9s
+  Epoch 2500 | Loss 6.4022e-03 | Y0 0.106172 | 533.3s
+  Epoch 2600 | Loss 6.6360e-03 | Y0 0.106165 | 554.8s
+  Epoch 2700 | Loss 8.3581e-03 | Y0 0.106125 | 576.4s
+  Epoch 2800 | Loss 6.4667e-03 | Y0 0.106103 | 597.7s
+  Epoch 2900 | Loss 7.0683e-03 | Y0 0.106121 | 619.2s
+  Epoch 2999 | Loss 6.2859e-03 | Y0 0.106093 | 640.5s
+Training complete.  Y0 = 0.106093  (640.5s)
+
+############################################################
+# d = 10
+############################################################
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.090404 ± 0.000027  (18.4s, 5000000 paths)
+MC reference: 0.090404 ± 0.000053 (18.4s)
+
+Timing MC Greeks FD  d=10 ...
+  MC Greeks FD batch 5: 125000/1000000
+  MC Greeks FD batch 10: 250000/1000000
+  MC Greeks FD batch 15: 375000/1000000
+  MC Greeks FD batch 20: 500000/1000000
+  MC Greeks FD batch 25: 625000/1000000
+  MC Greeks FD batch 30: 750000/1000000
+  MC Greeks FD batch 35: 875000/1000000
+  MC Greeks FD batch 40: 1000000/1000000
+  MC Greeks FD (d=10, 2d=20 passes) completed in 22.4s
+
+Training Triple-Net  d=10 ...
+=== Triple-Net Basket (SVJDM)  d=10  N=100  M=1024 ===
+  Epoch    0 | Loss 3.1417e-01 | Y0 0.001000 | 0.2s
+  Epoch  100 | Loss 6.5565e-03 | Y0 0.075251 | 21.6s
+  Epoch  200 | Loss 5.3173e-03 | Y0 0.089691 | 43.2s
+  Epoch  300 | Loss 4.6823e-03 | Y0 0.090505 | 64.6s
+  Epoch  400 | Loss 3.7624e-03 | Y0 0.089932 | 86.2s
+  Epoch  500 | Loss 3.9153e-03 | Y0 0.090338 | 107.6s
+  Epoch  600 | Loss 4.0734e-03 | Y0 0.090280 | 129.2s
+  Epoch  700 | Loss 3.4110e-03 | Y0 0.090297 | 150.8s
+  Epoch  800 | Loss 3.6674e-03 | Y0 0.090335 | 172.4s
+  Epoch  900 | Loss 3.2438e-03 | Y0 0.090603 | 193.9s
+  Epoch 1000 | Loss 3.3440e-03 | Y0 0.090774 | 215.6s
+  Epoch 1100 | Loss 3.3887e-03 | Y0 0.090544 | 236.9s
+  Epoch 1200 | Loss 3.1581e-03 | Y0 0.090491 | 258.2s
+  Epoch 1300 | Loss 3.1108e-03 | Y0 0.089969 | 279.6s
+  Epoch 1400 | Loss 3.4099e-03 | Y0 0.090911 | 300.9s
+  Epoch 1500 | Loss 2.5006e-03 | Y0 0.090132 | 322.1s
+  Epoch 1600 | Loss 2.4890e-03 | Y0 0.090392 | 343.5s
+  Epoch 1700 | Loss 2.5701e-03 | Y0 0.090302 | 364.8s
+  Epoch 1800 | Loss 2.6211e-03 | Y0 0.090506 | 386.1s
+  Epoch 1900 | Loss 2.8964e-03 | Y0 0.090218 | 407.4s
+  Epoch 2000 | Loss 2.4996e-03 | Y0 0.090332 | 428.7s
+  Epoch 2100 | Loss 2.3314e-03 | Y0 0.090396 | 450.0s
+  Epoch 2200 | Loss 2.3205e-03 | Y0 0.090490 | 471.4s
+  Epoch 2300 | Loss 2.7536e-03 | Y0 0.090044 | 492.7s
+  Epoch 2400 | Loss 2.5117e-03 | Y0 0.090500 | 514.0s
+  Epoch 2500 | Loss 2.2683e-03 | Y0 0.090338 | 535.4s
+  Epoch 2600 | Loss 2.3178e-03 | Y0 0.090381 | 556.7s
+  Epoch 2700 | Loss 2.4086e-03 | Y0 0.090352 | 578.0s
+  Epoch 2800 | Loss 2.7019e-03 | Y0 0.090403 | 599.4s
+  Epoch 2900 | Loss 2.2954e-03 | Y0 0.090436 | 620.7s
+  Epoch 2999 | Loss 2.3602e-03 | Y0 0.090385 | 642.0s
+Training complete.  Y0 = 0.090385  (642.0s)
+
+############################################################
+# d = 50
+############################################################
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.083549 ± 0.000024  (18.4s, 5000000 paths)
+MC reference: 0.083549 ± 0.000047 (18.4s)
+
+Timing MC Greeks FD  d=50 ...
+  MC Greeks FD batch 5: 125000/1000000
+  MC Greeks FD batch 10: 250000/1000000
+  MC Greeks FD batch 15: 375000/1000000
+  MC Greeks FD batch 20: 500000/1000000
+  MC Greeks FD batch 25: 625000/1000000
+  MC Greeks FD batch 30: 750000/1000000
+  MC Greeks FD batch 35: 875000/1000000
+  MC Greeks FD batch 40: 1000000/1000000
+  MC Greeks FD (d=50, 2d=100 passes) completed in 105.2s
+
+Training Triple-Net  d=50 ...
+=== Triple-Net Basket (SVJDM)  d=50  N=100  M=1024 ===
+  Epoch    0 | Loss 9.0231e-01 | Y0 0.001000 | 0.3s
+  Epoch  100 | Loss 1.5006e-02 | Y0 0.070330 | 21.7s
+  Epoch  200 | Loss 7.9854e-03 | Y0 0.082788 | 43.3s
+  Epoch  300 | Loss 7.7024e-03 | Y0 0.084025 | 64.9s
+  Epoch  400 | Loss 6.1592e-03 | Y0 0.083752 | 86.4s
+  Epoch  500 | Loss 5.8660e-03 | Y0 0.083381 | 108.0s
+  Epoch  600 | Loss 5.4950e-03 | Y0 0.083452 | 129.4s
+  Epoch  700 | Loss 4.9133e-03 | Y0 0.084082 | 150.8s
+  Epoch  800 | Loss 4.4645e-03 | Y0 0.082805 | 172.4s
+  Epoch  900 | Loss 4.2075e-03 | Y0 0.083650 | 194.1s
+  Epoch 1000 | Loss 3.7190e-03 | Y0 0.083658 | 215.6s
+  Epoch 1100 | Loss 3.5882e-03 | Y0 0.083669 | 237.3s
+  Epoch 1200 | Loss 3.3776e-03 | Y0 0.084077 | 258.9s
+  Epoch 1300 | Loss 3.2826e-03 | Y0 0.083059 | 280.4s
+  Epoch 1400 | Loss 2.8468e-03 | Y0 0.084260 | 302.1s
+  Epoch 1500 | Loss 2.8857e-03 | Y0 0.084190 | 323.8s
+  Epoch 1600 | Loss 2.0401e-03 | Y0 0.083846 | 345.6s
+  Epoch 1700 | Loss 1.8570e-03 | Y0 0.083752 | 367.3s
+  Epoch 1800 | Loss 1.6392e-03 | Y0 0.083590 | 388.7s
+  Epoch 1900 | Loss 1.7927e-03 | Y0 0.083616 | 410.3s
+  Epoch 2000 | Loss 1.9393e-03 | Y0 0.083512 | 432.1s
+  Epoch 2100 | Loss 1.8497e-03 | Y0 0.083605 | 453.9s
+  Epoch 2200 | Loss 1.7598e-03 | Y0 0.083428 | 475.5s
+  Epoch 2300 | Loss 1.7714e-03 | Y0 0.083515 | 496.9s
+  Epoch 2400 | Loss 1.6956e-03 | Y0 0.083200 | 518.3s
+  Epoch 2500 | Loss 1.8784e-03 | Y0 0.083529 | 539.8s
+  Epoch 2600 | Loss 1.9217e-03 | Y0 0.083548 | 561.3s
+  Epoch 2700 | Loss 1.7129e-03 | Y0 0.083526 | 582.8s
+  Epoch 2800 | Loss 1.5990e-03 | Y0 0.083537 | 604.5s
+  Epoch 2900 | Loss 1.5622e-03 | Y0 0.083519 | 625.9s
+  Epoch 2999 | Loss 1.7990e-03 | Y0 0.083590 | 647.2s
+Training complete.  Y0 = 0.083590  (647.2s)
+
+############################################################
+# d = 100
+############################################################
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.082576 ± 0.000024  (18.5s, 5000000 paths)
+MC reference: 0.082576 ± 0.000046 (18.5s)
+
+Timing MC Greeks FD  d=100 ...
+  MC Greeks FD batch 5: 125000/1000000
+  MC Greeks FD batch 10: 250000/1000000
+  MC Greeks FD batch 15: 375000/1000000
+  MC Greeks FD batch 20: 500000/1000000
+  MC Greeks FD batch 25: 625000/1000000
+  MC Greeks FD batch 30: 750000/1000000
+  MC Greeks FD batch 35: 875000/1000000
+  MC Greeks FD batch 40: 1000000/1000000
+  MC Greeks FD (d=100, 2d=200 passes) completed in 208.2s
+
+Training Triple-Net  d=100 ...
+=== Triple-Net Basket (SVJDM)  d=100  N=100  M=1024 ===
+  Epoch    0 | Loss 1.5152e+00 | Y0 0.001000 | 0.3s
+  Epoch  100 | Loss 3.1934e-02 | Y0 0.072119 | 21.8s
+  Epoch  200 | Loss 1.0483e-02 | Y0 0.082853 | 43.3s
+  Epoch  300 | Loss 9.4455e-03 | Y0 0.083141 | 64.9s
+  Epoch  400 | Loss 8.4373e-03 | Y0 0.082874 | 86.3s
+  Epoch  500 | Loss 7.3164e-03 | Y0 0.082322 | 107.7s
+  Epoch  600 | Loss 6.8666e-03 | Y0 0.083353 | 129.2s
+  Epoch  700 | Loss 6.3633e-03 | Y0 0.082888 | 150.7s
+  Epoch  800 | Loss 5.7938e-03 | Y0 0.082601 | 172.1s
+  Epoch  900 | Loss 5.3083e-03 | Y0 0.082558 | 193.6s
+  Epoch 1000 | Loss 5.3444e-03 | Y0 0.082915 | 215.1s
+  Epoch 1100 | Loss 4.5287e-03 | Y0 0.082448 | 236.7s
+  Epoch 1200 | Loss 4.4380e-03 | Y0 0.082441 | 258.5s
+  Epoch 1300 | Loss 4.1995e-03 | Y0 0.082103 | 280.2s
+  Epoch 1400 | Loss 3.7327e-03 | Y0 0.083095 | 301.9s
+  Epoch 1500 | Loss 4.0216e-03 | Y0 0.082720 | 323.5s
+  Epoch 1600 | Loss 2.1557e-03 | Y0 0.082526 | 345.1s
+  Epoch 1700 | Loss 1.9879e-03 | Y0 0.082500 | 366.7s
+  Epoch 1800 | Loss 1.8037e-03 | Y0 0.082538 | 388.2s
+  Epoch 1900 | Loss 1.8295e-03 | Y0 0.082713 | 409.7s
+  Epoch 2000 | Loss 2.0369e-03 | Y0 0.082779 | 431.2s
+  Epoch 2100 | Loss 1.8588e-03 | Y0 0.082605 | 452.8s
+  Epoch 2200 | Loss 1.7512e-03 | Y0 0.082497 | 474.3s
+  Epoch 2300 | Loss 1.6973e-03 | Y0 0.082606 | 495.9s
+  Epoch 2400 | Loss 1.8276e-03 | Y0 0.082595 | 517.4s
+  Epoch 2500 | Loss 1.8337e-03 | Y0 0.082715 | 538.9s
+  Epoch 2600 | Loss 1.7871e-03 | Y0 0.082692 | 560.8s
+  Epoch 2700 | Loss 1.8484e-03 | Y0 0.082678 | 582.4s
+  Epoch 2800 | Loss 1.7986e-03 | Y0 0.082628 | 604.0s
+  Epoch 2900 | Loss 1.5759e-03 | Y0 0.082636 | 625.7s
+  Epoch 2999 | Loss 1.7730e-03 | Y0 0.082676 | 647.2s
+Training complete.  Y0 = 0.082676  (647.2s)
+
+############################################################
+# d = 200
+############################################################
+  MC batch 5: 250000/10000000 paths
+  MC batch 10: 500000/10000000 paths
+  MC batch 15: 750000/10000000 paths
+  MC batch 20: 1000000/10000000 paths
+  MC batch 25: 1250000/10000000 paths
+  MC batch 30: 1500000/10000000 paths
+  MC batch 35: 1750000/10000000 paths
+  MC batch 40: 2000000/10000000 paths
+  MC batch 45: 2250000/10000000 paths
+  MC batch 50: 2500000/10000000 paths
+  MC batch 55: 2750000/10000000 paths
+  MC batch 60: 3000000/10000000 paths
+  MC batch 65: 3250000/10000000 paths
+  MC batch 70: 3500000/10000000 paths
+  MC batch 75: 3750000/10000000 paths
+  MC batch 80: 4000000/10000000 paths
+  MC batch 85: 4250000/10000000 paths
+  MC batch 90: 4500000/10000000 paths
+  MC batch 95: 4750000/10000000 paths
+  MC batch 100: 5000000/10000000 paths
+  MC batch 105: 5250000/10000000 paths
+  MC batch 110: 5500000/10000000 paths
+  MC batch 115: 5750000/10000000 paths
+  MC batch 120: 6000000/10000000 paths
+  MC batch 125: 6250000/10000000 paths
+  MC batch 130: 6500000/10000000 paths
+  MC batch 135: 6750000/10000000 paths
+  MC batch 140: 7000000/10000000 paths
+  MC batch 145: 7250000/10000000 paths
+  MC batch 150: 7500000/10000000 paths
+  MC batch 155: 7750000/10000000 paths
+  MC batch 160: 8000000/10000000 paths
+  MC batch 165: 8250000/10000000 paths
+  MC batch 170: 8500000/10000000 paths
+  MC batch 175: 8750000/10000000 paths
+  MC batch 180: 9000000/10000000 paths
+  MC batch 185: 9250000/10000000 paths
+  MC batch 190: 9500000/10000000 paths
+  MC batch 195: 9750000/10000000 paths
+  MC batch 200: 10000000/10000000 paths
+  MC price = 0.082110 ± 0.000024  (24.4s, 5000000 paths)
+MC reference: 0.082110 ± 0.000046 (24.4s)
+
+Timing MC Greeks FD  d=200 ...
+  MC Greeks FD batch 5: 125000/1000000
+  MC Greeks FD batch 10: 250000/1000000
+  MC Greeks FD batch 15: 375000/1000000
+  MC Greeks FD batch 20: 500000/1000000
+  MC Greeks FD batch 25: 625000/1000000
+  MC Greeks FD batch 30: 750000/1000000
+  MC Greeks FD batch 35: 875000/1000000
+  MC Greeks FD batch 40: 1000000/1000000
+  MC Greeks FD (d=200, 2d=400 passes) completed in 480.7s
+
+Training Triple-Net  d=200 ...
+=== Triple-Net Basket (SVJDM)  d=200  N=100  M=1024 ===
+  Epoch    0 | Loss 2.2628e+00 | Y0 0.001000 | 0.3s
+  Epoch  100 | Loss 9.1858e-02 | Y0 0.065561 | 22.1s
+  Epoch  200 | Loss 1.8030e-02 | Y0 0.081775 | 43.8s
+  Epoch  300 | Loss 9.3559e-03 | Y0 0.082215 | 65.5s
+  Epoch  400 | Loss 9.3025e-03 | Y0 0.082489 | 87.2s
+  Epoch  500 | Loss 8.6427e-03 | Y0 0.082194 | 108.7s
+  Epoch  600 | Loss 8.2223e-03 | Y0 0.081784 | 130.3s
+  Epoch  700 | Loss 7.4429e-03 | Y0 0.082026 | 151.9s
+  Epoch  800 | Loss 7.2245e-03 | Y0 0.081713 | 173.5s
+  Epoch  900 | Loss 7.4710e-03 | Y0 0.081719 | 195.3s
+  Epoch 1000 | Loss 6.4306e-03 | Y0 0.082491 | 217.0s
+  Epoch 1100 | Loss 6.3203e-03 | Y0 0.082750 | 238.5s
+  Epoch 1200 | Loss 6.2656e-03 | Y0 0.082474 | 260.1s
+  Epoch 1300 | Loss 5.4552e-03 | Y0 0.081434 | 281.6s
+  Epoch 1400 | Loss 5.0780e-03 | Y0 0.081371 | 303.2s
+  Epoch 1500 | Loss 4.7376e-03 | Y0 0.082784 | 324.9s
+  Epoch 1600 | Loss 2.7434e-03 | Y0 0.082483 | 346.6s
+  Epoch 1700 | Loss 2.6436e-03 | Y0 0.082327 | 368.1s
+  Epoch 1800 | Loss 2.4207e-03 | Y0 0.082110 | 389.7s
+  Epoch 1900 | Loss 2.4403e-03 | Y0 0.082093 | 411.3s
+  Epoch 2000 | Loss 2.2491e-03 | Y0 0.082204 | 433.0s
+  Epoch 2100 | Loss 2.2753e-03 | Y0 0.082170 | 454.8s
+  Epoch 2200 | Loss 2.1663e-03 | Y0 0.082109 | 476.3s
+  Epoch 2300 | Loss 2.0406e-03 | Y0 0.082075 | 497.9s
+  Epoch 2400 | Loss 2.1129e-03 | Y0 0.082011 | 519.5s
+  Epoch 2500 | Loss 2.0846e-03 | Y0 0.082005 | 541.0s
+  Epoch 2600 | Loss 2.0594e-03 | Y0 0.081989 | 562.5s
+  Epoch 2700 | Loss 2.0735e-03 | Y0 0.082028 | 584.2s
+  Epoch 2800 | Loss 1.9755e-03 | Y0 0.082104 | 605.7s
+  Epoch 2900 | Loss 1.8610e-03 | Y0 0.082158 | 627.4s
+  Epoch 2999 | Loss 1.8470e-03 | Y0 0.082165 | 648.7s
+Training complete.  Y0 = 0.082165  (648.7s)
+
+========================================================================================================================
+Dimension (d)           MC Benchmark (95% CI)   Our Model (Y0)  MC Price (s)  MC Greeks (s)  Our Time (per 1k ep, s)
+------------------------------------------------------------------------------------------------------------------------
+1 (COS exact)                          0.1371           0.1371             -              -                    213.7
+3 (10M paths)               0.1061 +/- 0.0001           0.1061          18.3            7.8                    213.5
+10 (10M paths)              0.0904 +/- 0.0001           0.0904          18.4           22.4                    214.0
+50 (10M paths)              0.0835 +/- 0.0000           0.0836          18.4          105.2                    215.7
+100 (10M paths)             0.0826 +/- 0.0000           0.0827          18.5          208.2                    215.7
+200 (10M paths)             0.0821 +/- 0.0000           0.0822          24.4          480.7                    216.2
+========================================================================================================================
+Saved: figs/phase2_time_vs_dim.png
+Saved: figs/phase2_relerr_vs_dim.png
+
+Phase 2 complete.
