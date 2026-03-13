@@ -40,6 +40,7 @@ run_step "Structure ablation" python experiments/ablation_structure.py
 run_step "Greeks extraction" python experiments/greeks_extraction.py
 run_step "Phase 3 barrier level" python experiments/phase3_barrier_level.py
 run_step "Phase 4 barrier jump" python experiments/phase4_barrier_jump.py
+run_step "Robustness" python experiments/robustness.py
 
 echo "[$(date '+%F %T')] Full SVJDM pipeline completed successfully"
 echo "Final log: $LOG_FILE"
