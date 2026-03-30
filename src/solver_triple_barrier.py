@@ -82,7 +82,7 @@ class BarrierSolver(nn.Module):
         self.cfg = cfg
         inp = cfg.d + 1
 
-        self.Y0 = nn.Parameter(torch.tensor(0.0))
+        self.Y0 = nn.Parameter(torch.tensor(cfg.y0_init))
 
         self.net_zs = nn.ModuleList([SubNet(inp, cfg.d) for _ in range(cfg.N)])
         self.net_zv = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])

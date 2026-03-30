@@ -35,6 +35,7 @@ class BatesConfig:
         epochs: int = 3000,
         lr: float = 1e-3,
         seed: int = 42,
+        y0_init: float = 0.0
     ):
         self.seed = seed
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

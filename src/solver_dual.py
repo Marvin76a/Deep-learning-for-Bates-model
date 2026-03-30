@@ -1,11 +1,17 @@
 """Dual-network Deep BSDE solver for Bates model.
 
 Uses two network branches:
-  Z-network  -> (d+1)-dim  combined diffusion risk (assets + variance)
-  U-network  -> d-dim      jump compensator
+  Z-network  -> d-dim  asset diffusion risk only (no variance channel)
+  U-network  -> 1-dim  jump compensator (common Poisson process)
 
-This is the "traditional" Deep BSDE layout (cf. pricing_svjdm.py) adapted
-to use the shared Cholesky-orthogonalised SDE from ``bates_sde``.
+Follows the pricing_base.py architecture: the network input is asset prices S
+only (d-dimensional), deliberately excluding the variance state so that the
+model cannot implicitly learn vega exposure.  This provides a fair ablation
+baseline against the Triple-Net, whose third branch (Z_v) explicitly captures
+the variance diffusion channel.
+
+The Bates SDE paths (with stochastic volatility and jumps) are still generated
+by ``bates_sde``, ensuring identical dynamics across all ablation models.
 """
 
 import time
@@ -13,7 +19,6 @@ import time
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import numpy as np
 
 from .config import BatesConfig
 from .bates_sde import sample_noises, generate_paths
@@ -21,29 +26,13 @@ from .networks import SubNet
 from .utils import set_seed, plot_training
 
 
-# ---------------------------------------------------------------------------
-# Internal helpers: reconstruct independent noise dW_iso from correlated dW
-# ---------------------------------------------------------------------------
-
-def _correlated_to_iso(dW_S, dW_v, L_full_inv, sqrt_dt):
-    """Convert correlated increments back to independent standard normals.
-
-    The dual-network Z lives in the *independent* noise space so that
-    Z · dW_iso covers both asset and variance diffusion simultaneously.
-    """
-    dW = torch.cat([dW_S, dW_v], dim=-1)              # [N, M, d+1]
-    L_inv = torch.tensor(L_full_inv, dtype=torch.float32, device=dW.device)
-    dW_iso = (dW @ L_inv.T) / sqrt_dt * sqrt_dt       # keep units: already scaled
-    return dW_iso                                      # [N, M, d+1]
-
-
 class DualSolver(nn.Module):
     def __init__(self, cfg: BatesConfig):
         super().__init__()
         self.cfg = cfg
-        x_dim = cfg.d + 1                             # state = (S, v)
+        x_dim = cfg.d                                 # input = S only (no variance)
 
-        self.Y0 = nn.Parameter(torch.tensor(0.0))
+        self.Y0 = nn.Parameter(torch.tensor(cfg.y0_init))
 
         self.z_nets = nn.ModuleList([SubNet(x_dim, x_dim) for _ in range(cfg.N)])
         self.u_nets = nn.ModuleList([SubNet(x_dim, 1)     for _ in range(cfg.N)])
@@ -53,18 +42,16 @@ class DualSolver(nn.Module):
         dt = cfg.T / cfg.N
         M = X.shape[1]
 
-        dW_full = torch.cat([dW_S, dW_v_tilde], dim=-1)  # [N, M, d+1]
-
         Y = self.Y0.expand(M)
 
         for n in range(cfg.N):
-            X_n = X[n]                                 # [M, d+1]
-            Z = self.z_nets[n](X_n)                    # [M, d+1]
-            U = self.u_nets[n](X_n).squeeze(1)         # [M]
+            S_n = X[n, :, :cfg.d]                    # [M, d] — asset prices only
+            Z = self.z_nets[n](S_n)                   # [M, d]
+            U = self.u_nets[n](S_n).squeeze(1)        # [M]
 
             Y = Y + (
                 cfg.r * Y * dt
-                + (Z * dW_full[n]).sum(1)
+                + (Z * dW_S[n]).sum(1)
                 + U * dN_tilde[n]
             )
 
@@ -80,7 +67,7 @@ def train(cfg: BatesConfig, verbose: bool = True):
     dev = cfg.device
 
     model = DualSolver(cfg).to(dev)
-    opt = optim.AdamW(model.parameters(), lr=cfg.lr)
+    opt = optim.Adam(model.parameters(), lr=cfg.lr)
     sched = optim.lr_scheduler.MultiStepLR(opt, milestones=[1500, 2500], gamma=0.1)
 
     losses, y0s = [], []

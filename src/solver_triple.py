@@ -25,7 +25,7 @@ class TripleSolver(nn.Module):
         self.cfg = cfg
         inp = cfg.d + 1                              # [S_n, v_n^+]
 
-        self.Y0 = nn.Parameter(torch.tensor(0.0))
+        self.Y0 = nn.Parameter(torch.tensor(cfg.y0_init))
 
         self.net_zs = nn.ModuleList([SubNet(inp, cfg.d) for _ in range(cfg.N)])
         self.net_zv = nn.ModuleList([SubNet(inp, 1)     for _ in range(cfg.N)])
@@ -66,7 +66,7 @@ def train(cfg: BatesConfig, verbose: bool = True):
     dev = cfg.device
 
     model = TripleSolver(cfg).to(dev)
-    opt = optim.AdamW(model.parameters(), lr=cfg.lr)
+    opt = optim.Adam(model.parameters(), lr=cfg.lr)
     sched = optim.lr_scheduler.MultiStepLR(opt, milestones=[1500, 2500], gamma=0.1)
 
     losses, y0s = [], []

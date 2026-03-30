@@ -24,7 +24,7 @@ class SingleSolver(nn.Module):
         self.cfg = cfg
         x_dim = cfg.d + 1                             # state = (S, v)
 
-        self.Y0 = nn.Parameter(torch.tensor(0.0))
+        self.Y0 = nn.Parameter(torch.tensor(cfg.y0_init))
 
         self.z_nets = nn.ModuleList([
             SubNet(x_dim, x_dim) for _ in range(cfg.N)
@@ -61,7 +61,7 @@ def train(cfg: BatesConfig, verbose: bool = True):
     dev = cfg.device
 
     model = SingleSolver(cfg).to(dev)
-    opt = optim.AdamW(model.parameters(), lr=cfg.lr)
+    opt = optim.Adam(model.parameters(), lr=cfg.lr)
     sched = optim.lr_scheduler.MultiStepLR(opt, milestones=[1500, 2500], gamma=0.1)
 
     losses, y0s = [], []

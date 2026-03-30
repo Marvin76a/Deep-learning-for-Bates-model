@@ -146,15 +146,14 @@ def generate_paths(cfg, device, dW_S, dW_v, dN, J):
 # ==========================================
 
 class SubNet(nn.Module):
-    """Feed-forward sub-network with input BatchNorm."""
+    """Feed-forward sub-network (matching src/networks.py)."""
 
     def __init__(self, in_dim, out_dim):
         super().__init__()
         h = in_dim + 20
         self.net = nn.Sequential(
-            nn.BatchNorm1d(in_dim),
-            nn.Linear(in_dim, h), nn.BatchNorm1d(h), nn.ReLU(),
-            nn.Linear(h, h),      nn.BatchNorm1d(h), nn.ReLU(),
+            nn.Linear(in_dim, h), nn.ReLU(),
+            nn.Linear(h, h),      nn.ReLU(),
             nn.Linear(h, out_dim),
         )
 
@@ -174,7 +173,7 @@ class BasketSolver(nn.Module):
     def __init__(self, cfg):
         super().__init__()
         self.cfg = cfg
-        inp = cfg.d + 2                                 # [t_n, S_n, v_n^+]
+        inp = cfg.d + 1                                 # [S_n, v_n^+]
 
         self.Y0 = nn.Parameter(torch.tensor(0.0))
 
@@ -193,8 +192,7 @@ class BasketSolver(nn.Module):
         for n in range(cfg.N):
             S_n = X[n, :, :cfg.d]
             v_n = torch.clamp(X[n, :, cfg.d:cfg.d + 1], min=0.0)
-            t_vec = torch.full((M, 1), n * dt, device=dev)
-            x_in = torch.cat([t_vec, S_n, v_n], dim=1)  # [M, d+2]
+            x_in = torch.cat([S_n, v_n], dim=1)
 
             Z_S = self.net_zs[n](x_in)                  # [M, d]
             Z_v = self.net_zv[n](x_in)                  # [M, 1]
