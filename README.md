@@ -48,9 +48,22 @@ svjdm/
 │   ├── ablation_structure.py      # Optimizer/LR schedule ablation (d=50)
 │   └── greeks_extraction.py       # Delta & Vega extraction (d=50)
 ├── pricing_algorithms/            # C++ reference (COS & MC for GBM/Heston)
-├── thesis/                        # LaTeX source
 └── figs/                          # Output figures
 ```
+
+## Git Ignore Policy
+
+The repository intentionally excludes environment artifacts, generated caches, and large research assets via `.gitignore`:
+
+- Python/build artifacts: `__pycache__/`, `*.py[cod]`, `*.egg-info/`, `dist/`, `build/`, `.eggs/`
+- Local environments: `.venv/`, `venv/`, `env/`
+- IDE/OS noise: `.vscode/`, `.idea/`, `*.swp`, `*.swo`, `.DS_Store`, `Thumbs.db`
+- Notebook/checkpoints: `.ipynb_checkpoints/`
+- Model checkpoints: `*.pt`, `*.pth`
+- Local tool config: `.cursor/`
+- Large document assets (not tracked): `thesis/`, `reference/`
+
+If you need to version control selected files under ignored paths, use targeted exceptions in `.gitignore` (for example with `!path/to/file`).
 
 ## Quick Start
 
