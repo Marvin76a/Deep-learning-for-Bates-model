@@ -2,7 +2,7 @@
 
 A structure-preserving, mesh-free deep learning framework for pricing high-dimensional European basket options and barrier options under the Stochastic Volatility Jump-Diffusion Model (SVJDM / Bates 1996). Scales to **200 dimensions** with $\mathcal{O}(d^2)$ complexity, achieving **< 0.1% relative pricing error** against Monte Carlo benchmarks while simultaneously extracting Delta and Vega hedging portfolios as a zero-cost byproduct.
 
-> **Paper**: *Orthogonal Derivation and Deep Learning Pricing of High-Dimensional SVJDM* — under review at *Quantitative Finance*.
+> **Paper**: *Orthogonal Derivation and Deep Learning Pricing of High-Dimensional SVJDM* — with editor at *Quantitative Finance*.
 
 ## Highlights
 
