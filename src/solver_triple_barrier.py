@@ -128,7 +128,7 @@ def train(cfg: BatesConfig, verbose: bool = True):
     dev = cfg.device
 
     model = BarrierSolver(cfg).to(dev)
-    opt = optim.AdamW(model.parameters(), lr=cfg.lr)
+    opt = optim.Adam(model.parameters(), lr=cfg.lr)
     sched = optim.lr_scheduler.MultiStepLR(opt, milestones=[1500, 2500], gamma=0.1)
 
     losses, y0s = [], []
