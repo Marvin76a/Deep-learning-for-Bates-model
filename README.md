@@ -63,7 +63,6 @@ The repository intentionally excludes environment artifacts, generated caches, a
 - Local tool config: `.cursor/`
 - Large document assets (not tracked): `thesis/`, `reference/`
 
-If you need to version control selected files under ignored paths, use targeted exceptions in `.gitignore` (for example with `!path/to/file`).
 
 ## Quick Start
 
