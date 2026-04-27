@@ -27,7 +27,7 @@ $$
 dv = \kappa(\theta - v)\,dt + \sigma_v \sqrt{v}\,dW_v
 $$
 
-where $\operatorname{corr}(dW_{S}^{i}, dW_v) = \rho_{\mathrm{sv}}$, $\operatorname{corr}(dW_{S}^{i}, dW_{S}^{j}) = \rho_{\mathrm{assets}}$, and $\ln(J) \sim \mathcal{N}(\mu_J, \sigma_J^2)$.
+where $\mathrm{corr}(dW_{S}^{i}, dW_v) = \rho_{sv}$, $\mathrm{corr}(dW_{S}^{i}, dW_{S}^{j}) = \rho_{assets}$, and $\ln(J) \sim \mathcal{N}(\mu_J, \sigma_J^2)$.
 
 ## Project Structure
 
