@@ -18,11 +18,16 @@ A structure-preserving, mesh-free deep learning framework for pricing high-dimen
 
 Under the risk-neutral measure $\mathbb{Q}$, the $d$-dimensional asset prices and the common variance process follow:
 
-$$\frac{dS_i}{S_i} = (r - q - \lambda\bar{k})\,dt + \sqrt{v}\,dW_S^i + (J_i - 1)\,dN$$
+$$
+\frac{dS_i}{S_i}
+= (r - q - \lambda \bar{k})\,dt + \sqrt{v}\,dW_{S}^{i} + (J_i - 1)\,dN
+$$
 
-$$dv = \kappa(\theta - v)\,dt + \sigma_v \sqrt{v}\,dW_v$$
+$$
+dv = \kappa(\theta - v)\,dt + \sigma_v \sqrt{v}\,dW_v
+$$
 
-where $\text{corr}(dW_S^i, dW_v) = \rho_{sv}$, $\text{corr}(dW_S^i, dW_S^j) = \rho_{\text{assets}}$, and $\ln(J) \sim \mathcal{N}(\mu_J, \sigma_J^2)$.
+where $\operatorname{corr}(dW_{S}^{i}, dW_v) = \rho_{\mathrm{sv}}$, $\operatorname{corr}(dW_{S}^{i}, dW_{S}^{j}) = \rho_{\mathrm{assets}}$, and $\ln(J) \sim \mathcal{N}(\mu_J, \sigma_J^2)$.
 
 ## Project Structure
 
