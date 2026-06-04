@@ -1,5 +1,6 @@
 """Shared neural-network building blocks used by all BSDE solvers."""
 
+import torch
 import torch.nn as nn
 
 
@@ -17,6 +18,39 @@ class SubNet(nn.Module):
 
     def forward(self, x):
         return self.net(x)
+
+
+class XNetSubNet(nn.Module):
+    """Vector-valued XNet sub-network based on Cauchy activation functions."""
+
+    def __init__(self, in_dim: int, out_dim: int, basis: int):
+        super().__init__()
+        self.in_dim = in_dim
+        self.out_dim = out_dim
+        self.basis = basis
+
+        self.a = nn.Parameter(torch.empty(basis, in_dim))
+        self.c = nn.Parameter(torch.empty(basis))
+        self.raw_e = nn.Parameter(torch.empty(basis))
+        self.alpha = nn.Parameter(torch.empty(out_dim, basis))
+        self.beta = nn.Parameter(torch.empty(out_dim, basis))
+        self.reset_parameters()
+
+    def reset_parameters(self):
+        nn.init.xavier_uniform_(self.a)
+        nn.init.uniform_(self.c, -0.1, 0.1)
+        nn.init.uniform_(self.raw_e, 0.5, 1.0)
+        nn.init.xavier_uniform_(self.alpha)
+        nn.init.xavier_uniform_(self.beta)
+
+    def forward(self, x):
+        s = x @ self.a.T + self.c
+        e = torch.nn.functional.softplus(self.raw_e) + 1e-6
+        denom = s.square() + e.square()
+
+        real_basis = s / denom
+        imag_basis = e / denom
+        return real_basis @ self.alpha.T + imag_basis @ self.beta.T
 
 
 class SimpleNet(nn.Module):

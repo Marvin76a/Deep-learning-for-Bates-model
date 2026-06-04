@@ -35,7 +35,8 @@ class BatesConfig:
         epochs: int = 3000,
         lr: float = 1e-3,
         seed: int = 42,
-        y0_init: float = 0.0
+        y0_init: float = 0.0,
+        xnet_basis: int | None = None,
     ):
         self.seed = seed
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -67,6 +68,9 @@ class BatesConfig:
 
         self.epochs = epochs
         self.lr = lr
+        self.y0_init = y0_init
+        self._xnet_basis_auto = xnet_basis is None
+        self.xnet_basis = xnet_basis
 
         self.weights = None
         self.k_bar = None
@@ -77,6 +81,8 @@ class BatesConfig:
     def _build(self):
         d = self.d
         self.weights = np.ones(d) / d
+        if self._xnet_basis_auto:
+            self.xnet_basis = d
 
         # k_bar = E[J - 1] = exp(mu_J + sigma_J^2 / 2) - 1
         self.k_bar = np.exp(self.mu_J + 0.5 * self.sigma_J ** 2) - 1
