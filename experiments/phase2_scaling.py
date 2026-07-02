@@ -16,11 +16,14 @@ Outputs
     Dimension | MC Benchmark (95% CI) | Our Model (Y0) | MC Time | Our Time (per 1k Epochs)
   - Computation time vs dimension chart
   - Relative error vs dimension chart
+  - Per-dimension training traces (losses, Y0, rel err, epoch wall times) under
+    experiments/phase2_traces_<YYYYMMDD>/ for post-hoc convergence / timing plots
 """
 
 import sys
 import os
 import copy
+import json
 import time
 import datetime
 
@@ -58,6 +61,10 @@ MC_BATCH = 50_000
 MC_GREEKS_PATHS = 1_000_000
 MC_GREEKS_BATCH = 25_000
 EPS_S = 0.01
+
+LR_MILESTONES = [1500, 2500]
+LR_GAMMA = 0.1
+TRACES_DIRNAME = "phase2_traces"
 
 
 def _basket_payoff(X, cfg, dev):
@@ -124,7 +131,86 @@ def mc_greeks_fd_timed(cfg, n_paths=MC_GREEKS_PATHS, batch_size=MC_GREEKS_BATCH,
     return elapsed
 
 
-def run_for_dim(d):
+def save_training_trace(d, cfg, losses, y0s, elapsed, row, trace_dir):
+    """Save full per-epoch training trajectory for post-hoc analysis."""
+    os.makedirs(trace_dir, exist_ok=True)
+
+    losses_arr = np.asarray(losses, dtype=np.float64)
+    y0s_arr = np.asarray(y0s, dtype=np.float64)
+    n = len(losses_arr)
+    epochs = np.arange(n, dtype=np.int32)
+    # Uniform per-epoch wall time (train() does not log per-step timestamps).
+    epoch_times = elapsed * (epochs + 1) / n
+
+    ref = row["ref_price"]
+    rel_err = (
+        np.abs(y0s_arr - ref) / np.abs(ref)
+        if ref != 0
+        else np.full(n, np.nan, dtype=np.float64)
+    )
+
+    path = os.path.join(trace_dir, f"d{d:03d}.npz")
+    np.savez_compressed(
+        path,
+        d=d,
+        epochs=epochs,
+        losses=losses_arr,
+        y0s=y0s_arr,
+        rel_err=rel_err,
+        epoch_times=epoch_times,
+        ref_price=np.float64(ref),
+        ref_ci=np.float64(row["ref_ci"] if row["ref_ci"] is not None else np.nan),
+        mc_time=np.float64(row["mc_time"] if row["mc_time"] is not None else np.nan),
+        mc_greeks_time=np.float64(
+            row["mc_greeks_time"] if row["mc_greeks_time"] is not None else np.nan
+        ),
+        dl_time_total=np.float64(elapsed),
+        final_y0=np.float64(y0s_arr[-1]),
+        epochs_total=np.int32(cfg.epochs),
+        batch_size=np.int32(cfg.M),
+        n_steps=np.int32(cfg.N),
+        initial_lr=np.float64(cfg.lr),
+        lr_milestones=np.asarray(LR_MILESTONES, dtype=np.int32),
+        lr_gamma=np.float64(LR_GAMMA),
+    )
+    print(f"Saved training trace: {path}")
+    return path
+
+
+def save_run_summary(rows, trace_dir, timestamp):
+    """Save experiment metadata and summary table as JSON."""
+    summary = {
+        "timestamp": timestamp,
+        "epochs": EPOCHS,
+        "n_steps": N_STEPS,
+        "batch_size": BATCH_SIZE,
+        "lr_milestones": LR_MILESTONES,
+        "lr_gamma": LR_GAMMA,
+        "dims": DIMS,
+        "rows": [
+            {
+                "d": r["d"],
+                "label": r["label"],
+                "ref_price": r["ref_price"],
+                "ref_ci": r["ref_ci"],
+                "y0": r["y0"],
+                "mc_time": r["mc_time"],
+                "mc_greeks_time": r["mc_greeks_time"],
+                "dl_time_total": r["dl_time_total"],
+                "dl_time_per1k": r["dl_time_per1k"],
+                "trace_file": f"d{r['d']:03d}.npz",
+            }
+            for r in rows
+        ],
+    }
+    path = os.path.join(trace_dir, "summary.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=2)
+    print(f"Saved run summary: {path}")
+    return path
+
+
+def run_for_dim(d, trace_dir=None):
     """Run Triple-Net and benchmark for a single dimension."""
     print(f"\n{'#'*60}")
     print(f"# d = {d}")
@@ -171,6 +257,9 @@ def run_for_dim(d):
     row["y0"] = y0
     row["dl_time_total"] = elapsed
     row["dl_time_per1k"] = elapsed * 1000 / EPOCHS
+
+    if trace_dir is not None:
+        save_training_trace(d, cfg, losses, y0s, elapsed, row, trace_dir)
 
     return row
 
@@ -284,12 +373,17 @@ if __name__ == "__main__":
     sys.stderr = _Tee(sys.stderr, _log_file)
     print(f"Logging to {log_path}")
 
+    trace_dir = os.path.join(script_dir, f"{TRACES_DIRNAME}_{timestamp}")
+    os.makedirs(trace_dir, exist_ok=True)
+    print(f"Training traces -> {trace_dir}")
+
     rows = []
     for d in DIMS:
-        row = run_for_dim(d)
+        row = run_for_dim(d, trace_dir=trace_dir)
         rows.append(row)
 
+    save_run_summary(rows, trace_dir, timestamp)
     print_scaling_table(rows)
     plot_time_vs_dim(rows)
     plot_relerr_vs_dim(rows)
-    print("\nPhase 2 complete.")
+    print(f"\nPhase 2 complete.  Traces: {trace_dir}")
